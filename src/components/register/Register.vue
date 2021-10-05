@@ -71,7 +71,11 @@ export default {
         username: this.username,
         password: this.password
       });
-      axios.post('http://cherniuk-exchange:8080/api/register', data)
+      axios.post('http://cherniuk-exchange:8080/api/register', data, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
           .then(response => {
             if(response.data.code === 200) {
               this.isRegistered = true;

@@ -52,15 +52,17 @@ export default {
         username: this.username,
         password: this.password
       });
-      axios.post('http://cherniuk-exchange:8080/api/login_check', data)
+      axios.post('http://cherniuk-exchange:8080/api/login_check', data, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
           .then(response => {
-            if(response.data.code === 200) {
+            if(response.data.token) {
               console.log(response);
             } else {
               this.message = "";
-              response.data.messages.forEach(msg => {
-                this.message += msg + ";";
-              })
+              this.message = response.data.message;
             }
           })
           .catch(error => {
