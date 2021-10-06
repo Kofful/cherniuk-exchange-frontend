@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="register" v-if="!this.isRegistered"
+  <form @submit.prevent="register"
         class="position-absolute top-50 start-50 translate-middle w-50 p-5 border border-white rounded">
     <div class="input-data">
       <label class="mt-3" for="email-input">Email</label>
@@ -23,9 +23,6 @@
       <span class="text-danger align-self-center">{{ message }}</span>
     </div>
   </form>
-  <div v-else class="position-absolute top-50 start-50 translate-middle w-50 p-5 border border-white rounded">
-    <h3>We sent confirmation link to your email. Please, check your inbox.</h3>
-  </div>
 </template>
 
 <script>
@@ -40,8 +37,7 @@ export default {
     isEmailValid: true,
     isPasswordValid: true,
     isUsernameValid: true,
-    message: "",
-    isRegistered: false
+    message: ""
   }),
   watch: {
     email(newValue) {
@@ -72,9 +68,11 @@ export default {
         password: this.password
       });
       const response = await register(data);
-      console.log(response);
       if (response.code === 200) {
-        this.isRegistered = true;
+        this.$toast.info("<h3>We sent confirmation link to your email. Please, check your inbox.</h3>", {
+          duration: 0
+        });
+        await this.$router.push({name: "Home"});
       } else {
         this.message = "";
         response.messages.forEach(msg => {
