@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {register} from "/src/api/auth";
 
 export default {
   name: "Register",
@@ -65,31 +65,22 @@ export default {
     }
   },
   methods: {
-    register() {
+    async register() {
       const data = JSON.stringify({
         email: this.email,
         username: this.username,
         password: this.password
       });
-      axios.post('http://cherniuk-exchange:8080/api/register', data, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-          .then(response => {
-            if(response.data.code === 200) {
-              this.isRegistered = true;
-            } else {
-              this.message = "";
-              response.data.messages.forEach(msg => {
-                this.message += msg + ";";
-              })
-            }
-          })
-          .catch(error => {
-            console.log(error);
-            this.message = "Something went wrong.";
-          })
+      const response = await register(data);
+      console.log(response);
+      if (response.code === 200) {
+        this.isRegistered = true;
+      } else {
+        this.message = "";
+        response.messages.forEach(msg => {
+          this.message += msg + ";";
+        })
+      }
     }
   }
 }

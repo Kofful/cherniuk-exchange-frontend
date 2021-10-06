@@ -1,25 +1,28 @@
 <template>
-<form @submit.prevent="login" class="position-absolute top-50 start-50 translate-middle w-50 p-5 border border-white rounded">
-  <div class="input-data">
-    <label class="mt-3" for="username-input">Username</label>
-    <input id="username-input" name="username"
-           :class="{'login-input form-control': true, 'is-invalid': !isUsernameValid}"
-           type="text" autocomplete="off" v-model="username">
-    <label class="mt-3" for="password-input">Password</label>
-    <input id="password-input" name="password"
-           :class="{'login-input form-control': true, 'is-invalid': !isPasswordValid}"
-           type="password" v-model="password">
-  </div>
-  <div class="link-div mt-3 d-flex flex-column">
-    <p>No account yet? <router-link to="/register">Register</router-link></p>
-    <button class="btn btn-success w-50 align-self-center" :disabled="!isFormValid">Log in</button>
-    <span class="text-danger align-self-center">{{message}}</span>
-  </div>
-</form>
+  <form @submit.prevent="login"
+        class="position-absolute top-50 start-50 translate-middle w-50 p-5 border border-white rounded">
+    <div class="input-data">
+      <label class="mt-3" for="username-input">Username</label>
+      <input id="username-input" name="username"
+             :class="{'login-input form-control': true, 'is-invalid': !isUsernameValid}"
+             type="text" autocomplete="off" v-model="username">
+      <label class="mt-3" for="password-input">Password</label>
+      <input id="password-input" name="password"
+             :class="{'login-input form-control': true, 'is-invalid': !isPasswordValid}"
+             type="password" v-model="password">
+    </div>
+    <div class="link-div mt-3 d-flex flex-column">
+      <p>No account yet?
+        <router-link to="/register">Register</router-link>
+      </p>
+      <button class="btn btn-success w-50 align-self-center" :disabled="!isFormValid">Log in</button>
+      <span class="text-danger align-self-center">{{ message }}</span>
+    </div>
+  </form>
 </template>
 
 <script>
-const axios = require('axios');
+import {login} from '/src/api/auth';
 
 export default {
   name: "Login",
@@ -47,28 +50,18 @@ export default {
     }
   },
   methods: {
-    login() {
+    async login() {
       const data = JSON.stringify({
         username: this.username,
         password: this.password
       });
-      axios.post('http://cherniuk-exchange:8080/api/login_check', data, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-          .then(response => {
-            if(response.data.token) {
-              console.log(response);
-            } else {
-              this.message = "";
-              this.message = response.data.message;
-            }
-          })
-          .catch(error => {
-            console.log(error);
-            this.message = "Something went wrong.";
-          })
+      const response = await login(data)
+      if (response.token) {
+        console.log(response);
+      } else {
+        this.message = "";
+        this.message = response.message;
+      }
     }
   }
 }
