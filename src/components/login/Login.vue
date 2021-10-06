@@ -57,10 +57,10 @@ export default {
       });
       const response = await login(data)
       if (response.token) {
-        console.log(response);
+        this.$cookies.set("token", response.token);
+        await this.$router.push({name: "Home"});
       } else {
-        this.message = "";
-        this.message = response.message;
+        this.message = "Incorrect username or password";
       }
     }
   }

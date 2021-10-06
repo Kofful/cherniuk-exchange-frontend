@@ -1,11 +1,13 @@
 import axios from 'axios';
 
 const fetchFunction = async requestConfig => {
-    const response = await axios(requestConfig).catch(e => {
-        console.log(e);
+    const response = await axios(requestConfig).catch(() => {
         return {
-            code: 500,
-            messages: ["Something went wrong"]
+            status: 200,
+            data: {
+                code: 500,
+                message: "Something went wrong"
+            }
         };
     });
 
