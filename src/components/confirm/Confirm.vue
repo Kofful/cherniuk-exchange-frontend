@@ -1,7 +1,7 @@
 <template>
   <div v-if="isConfirmed" class="d-flex flex-column justify-content-center">
     <h3>Email is confirmed!</h3>
-    <router-link to="/" class="w-50 btn btn-success">Return to home page</router-link>
+    <router-link :to="{name: 'Home'}" class="w-50 btn btn-success">Return to home page</router-link>
   </div>
   <div v-else class="d-flex align-content-center">
     <h3 :class="isLoaded ? 'text-danger' : 'text-white'">{{ message }}</h3>

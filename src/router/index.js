@@ -24,6 +24,10 @@ const routes = [
         path: "/confirm",
         name: "Confirm",
         component: Confirm,
+    },
+    {
+        path: "/logout",
+        name: "Logout"
     }
 ];
 

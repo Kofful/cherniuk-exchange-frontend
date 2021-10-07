@@ -42,7 +42,7 @@
     </div>
     <div class="link-div mt-3 d-flex flex-column">
       <p>Already have an account?
-        <router-link to="/login">Log in</router-link>
+        <router-link :to="{name: 'Login'}">Log in</router-link>
       </p>
       <button class="btn btn-success w-50 align-self-center" :disabled="v$.$invalid">Register</button>
       <span class="text-danger align-self-center">{{ message }}</span>

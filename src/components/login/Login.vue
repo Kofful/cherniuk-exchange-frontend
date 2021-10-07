@@ -34,7 +34,7 @@
     </div>
     <div class="link-div mt-3 d-flex flex-column">
       <p>No account yet?
-        <router-link to="/register">Register</router-link>
+        <router-link :to="{name: 'Register'}">Register</router-link>
       </p>
       <button class="btn btn-success w-50 align-self-center" :disabled="v$.$invalid">Log in</button>
       <span class="text-danger align-self-center">{{ message }}</span>
