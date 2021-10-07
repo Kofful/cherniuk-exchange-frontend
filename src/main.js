@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import VueCookies from "vue3-cookies";
 import VueToast from 'vue-toast-notification';
-import 'vue-toast-notification/dist/theme-sugar.css';
 import App from "./App.vue";
 import router from "./router";
 
