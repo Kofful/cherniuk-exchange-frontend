@@ -43,7 +43,7 @@
 <script>
 import {register} from "/src/api/auth";
 import useVuelidate from '@vuelidate/core'
-import {required, email, minLength, maxLength, helpers} from '@vuelidate/validators/dist/raw.esm'
+import {registrationSchema} from "../../utils/validation/auth";
 
 
 export default {
@@ -57,27 +57,7 @@ export default {
     password: "",
     message: ""
   }),
-  validations: () => ({
-    email: {
-      required: helpers.withMessage("Email is required.", required),
-      email: helpers.withMessage("Email is not valid.", email)
-    },
-    username: {
-      required: helpers.withMessage("Username is required.", required),
-      minLengthValue: helpers.withMessage("Username must be longer than 3 characters.", minLength(3)),
-      maxLengthValue: helpers.withMessage("Username must be shorter than 64 characters.", maxLength(64)),
-      username: helpers.withMessage(
-          "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"",
-          value => {
-        return value.match(/^[0-9a-zA-Z_.]*$/)
-      })
-    },
-    password: {
-      required: helpers.withMessage("Password is required.", required),
-      minLengthValue: helpers.withMessage("Password must be longer than 8 characters.", minLength(3)),
-      maxLengthValue: helpers.withMessage("Password must be shorter than 64 characters.", maxLength(64)),
-    }
-  }),
+  validations: () => [...registrationSchema],
   methods: {
     async register() {
       const data = JSON.stringify({
