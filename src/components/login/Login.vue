@@ -7,15 +7,8 @@
         <input id="username-input" name="username"
                :class="{'login-input form-control': true, 'is-invalid': v$.username.$error}"
                type="text" autocomplete="off" v-model.trim="v$.username.$model">
-        <div class="invalid-feedback" v-if="v$.username.required.$invalid">Username is required.</div>
-        <div class="invalid-feedback" v-if="v$.username.minLengthValue.$invalid">Username must be longer than 3
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.username.maxLengthValue.$invalid">Username must be shorter than 64
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.username.username.$invalid">Username must contain only latin letters,
-          numbers and specific symbols like: "_", "."
+        <div class="invalid-feedback" v-for="error in v$.username.$errors" :key="error">
+          {{error.$message}}
         </div>
       </div>
       <div class="form-group">
@@ -23,12 +16,8 @@
         <input id="password-input" name="password"
                :class="{'login-input form-control': true, 'is-invalid': v$.password.$error}"
                type="password" v-model.trim="v$.password.$model">
-        <div class="invalid-feedback" v-if="v$.password.required.$invalid">Password is required.</div>
-        <div class="invalid-feedback" v-if="v$.password.minLengthValue.$invalid">Password must be longer than 8
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.password.maxLengthValue.$invalid">Password must be shorter than 64
-          characters.
+        <div class="invalid-feedback" v-for="error in v$.password.$errors" :key="error">
+          {{error.$message}}
         </div>
       </div>
     </div>
@@ -45,7 +34,7 @@
 <script>
 import {login} from '/src/api/auth';
 import useVuelidate from '@vuelidate/core'
-import {required, minLength, maxLength} from '@vuelidate/validators'
+import {required, minLength, maxLength, helpers} from '@vuelidate/validators'
 
 export default {
   setup: () => {
@@ -59,17 +48,19 @@ export default {
   }),
   validations: () => ({
     username: {
-      required,
-      minLengthValue: minLength(3),
-      maxLengthValue: maxLength(64),
-      username: value => {
-        return value.match(/^[0-9a-zA-Z_.]*$/)
-      }
+      required: helpers.withMessage("Username is required.", required),
+      minLengthValue: helpers.withMessage("Username must be longer than 3 characters.", minLength(3)),
+      maxLengthValue: helpers.withMessage("Username must be shorter than 64 characters.", maxLength(64)),
+      username: helpers.withMessage(
+          "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"",
+          value => {
+            return value.match(/^[0-9a-zA-Z_.]*$/)
+          })
     },
     password: {
-      required,
-      minLengthValue: minLength(8),
-      maxLengthValue: maxLength(64)
+      required: helpers.withMessage("Password is required.", required),
+      minLengthValue: helpers.withMessage("Password must be longer than 8 characters.", minLength(3)),
+      maxLengthValue: helpers.withMessage("Password must be shorter than 64 characters.", maxLength(64)),
     }
   }),
   methods: {

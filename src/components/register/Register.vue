@@ -7,23 +7,17 @@
         <input id="email-input" name="email" :class="{ 'is-invalid': v$.email.$error }" v-model.trim="v$.email.$model"
                class="login-input form-control"
                type="text" autocomplete="off">
-        <div class="invalid-feedback" v-if="v$.email.required.$invalid">Email is required.</div>
-        <div class="invalid-feedback" v-if="v$.email.email.$invalid">Email is not valid.</div>
+        <div class="invalid-feedback" v-for="error in v$.email.$errors" :key="error">
+          {{error.$message}}
+        </div>
       </div>
       <div class="form-group">
         <label class="mt-3" for="username-input">Username</label>
         <input id="username-input" name="username"
                :class="{'login-input form-control': true, 'is-invalid': v$.username.$error}"
                type="text" autocomplete="off" v-model.trim="v$.username.$model">
-        <div class="invalid-feedback" v-if="v$.username.required.$invalid">Username is required.</div>
-        <div class="invalid-feedback" v-if="v$.username.minLengthValue.$invalid">Username must be longer than 3
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.username.maxLengthValue.$invalid">Username must be shorter than 64
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.username.username.$invalid">Username must contain only latin letters,
-          numbers and specific symbols like: "_", "."
+        <div class="invalid-feedback" v-for="error in v$.username.$errors" :key="error">
+          {{error.$message}}
         </div>
       </div>
       <div class="form-group">
@@ -31,12 +25,8 @@
         <input id="password-input" name="password"
                :class="{'login-input form-control': true, 'is-invalid': v$.password.$error}"
                type="password" v-model.trim="v$.password.$model">
-        <div class="invalid-feedback" v-if="v$.password.required.$invalid">Password is required.</div>
-        <div class="invalid-feedback" v-if="v$.password.minLengthValue.$invalid">Password must be longer than 8
-          characters.
-        </div>
-        <div class="invalid-feedback" v-if="v$.password.maxLengthValue.$invalid">Password must be shorter than 64
-          characters.
+        <div class="invalid-feedback" v-for="error in v$.password.$errors" :key="error">
+          {{error.$message}}
         </div>
       </div>
     </div>
@@ -53,7 +43,7 @@
 <script>
 import {register} from "/src/api/auth";
 import useVuelidate from '@vuelidate/core'
-import {required, email, minLength, maxLength} from '@vuelidate/validators'
+import {required, email, minLength, maxLength, helpers} from '@vuelidate/validators/dist/raw.esm'
 
 
 export default {
@@ -69,21 +59,23 @@ export default {
   }),
   validations: () => ({
     email: {
-      required,
-      email
+      required: helpers.withMessage("Email is required.", required),
+      email: helpers.withMessage("Email is not valid.", email)
     },
     username: {
-      required,
-      minLengthValue: minLength(3),
-      maxLengthValue: maxLength(64),
-      username: value => {
+      required: helpers.withMessage("Username is required.", required),
+      minLengthValue: helpers.withMessage("Username must be longer than 3 characters.", minLength(3)),
+      maxLengthValue: helpers.withMessage("Username must be shorter than 64 characters.", maxLength(64)),
+      username: helpers.withMessage(
+          "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"",
+          value => {
         return value.match(/^[0-9a-zA-Z_.]*$/)
-      }
+      })
     },
     password: {
-      required,
-      minLengthValue: minLength(8),
-      maxLengthValue: maxLength(64)
+      required: helpers.withMessage("Password is required.", required),
+      minLengthValue: helpers.withMessage("Password must be longer than 8 characters.", minLength(3)),
+      maxLengthValue: helpers.withMessage("Password must be shorter than 64 characters.", maxLength(64)),
     }
   }),
   methods: {
