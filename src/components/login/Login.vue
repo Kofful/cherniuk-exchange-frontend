@@ -54,8 +54,8 @@ export default {
         password: this.password
       });
       const response = await login(data)
-      if (response.token) {
-        this.$cookies.set("token", response.token);
+      if (response.data.token) {
+        this.$cookies.set("token", response.data.token);
         await this.$router.push({name: "Home"});
       } else {
         this.message = "Incorrect username or password";

@@ -35,7 +35,7 @@
         <router-link :to="{name: 'Login'}">Log in</router-link>
       </p>
       <button class="btn btn-success w-50 align-self-center" :disabled="v$.$invalid">Register</button>
-      <span class="text-danger align-self-center">{{ message }}</span>
+      <span v-for="message in messages" :key="message" class="text-danger align-self-center">{{ message }}</span>
     </div>
   </form>
 </template>
@@ -55,9 +55,9 @@ export default {
     email: "",
     username: "",
     password: "",
-    message: ""
+    messages: []
   }),
-  validations: () => [...registrationSchema],
+  validations: () => (registrationSchema),
   methods: {
     async register() {
       const data = JSON.stringify({
@@ -66,15 +66,15 @@ export default {
         password: this.password
       });
       const response = await register(data);
-      if (response.code === 200) {
+      if (response.status === 200) {
         this.$toast.info("<h3>We sent confirmation link to your email. Please, check your inbox.</h3>", {
           duration: 0
         });
         await this.$router.push({name: "Home"});
       } else {
-        this.message = "";
-        response.messages.forEach(msg => {
-          this.message += msg;
+        this.messages = [];
+        response.data.forEach(msg => {
+          this.messages.push(msg);
         });
       }
     }
