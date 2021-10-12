@@ -18,7 +18,7 @@ const username = {
 
 const password = {
     required: helpers.withMessage("Password is required.", required),
-    minLengthValue: helpers.withMessage("Password must be longer than 8 characters.", minLength(3)),
+    minLengthValue: helpers.withMessage("Password must be longer than 8 characters.", minLength(8)),
     maxLengthValue: helpers.withMessage("Password must be shorter than 64 characters.", maxLength(64)),
 };
 
