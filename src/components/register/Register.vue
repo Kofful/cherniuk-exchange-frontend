@@ -8,7 +8,7 @@
                class="login-input form-control"
                type="text" autocomplete="off">
         <div class="invalid-feedback" v-for="error in v$.email.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
       <div class="form-group">
@@ -17,7 +17,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.username.$error}"
                type="text" autocomplete="off" v-model.trim="v$.username.$model">
         <div class="invalid-feedback" v-for="error in v$.username.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
       <div class="form-group">
@@ -26,7 +26,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.password.$error}"
                type="password" v-model.trim="v$.password.$model">
         <div class="invalid-feedback" v-for="error in v$.password.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
         <router-link :to="{name: 'Login'}">Log in</router-link>
       </p>
       <button class="btn btn-success w-50 align-self-center" :disabled="v$.$invalid">Register</button>
-      <span class="text-danger align-self-center">{{ message }}</span>
+      <span v-for="message in messages" :key="message" class="text-danger align-self-center">{{ message }}</span>
     </div>
   </form>
 </template>
@@ -55,9 +55,9 @@ export default {
     email: "",
     username: "",
     password: "",
-    message: ""
+    messages: []
   }),
-  validations: () => [...registrationSchema],
+  validations: () => (registrationSchema),
   methods: {
     async register() {
       const data = JSON.stringify({
@@ -65,17 +65,18 @@ export default {
         username: this.username,
         password: this.password
       });
-      const response = await register(data);
-      if (response.code === 200) {
+      try {
+        await register(data);
         this.$toast.info("<h3>We sent confirmation link to your email. Please, check your inbox.</h3>", {
           duration: 0
         });
         await this.$router.push({name: "Home"});
-      } else {
-        this.message = "";
-        response.messages.forEach(msg => {
-          this.message += msg;
-        });
+      } catch (error) {
+        if (error.status === 400) {
+          this.messages = error.data.slice();
+        } else {
+          this.messages = ["Something went wrong"];
+        }
       }
     }
   }

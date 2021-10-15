@@ -21,7 +21,7 @@ export default {
   mounted: async function () {
     const response = await confirmEmail(this.$route.query)
     this.isLoaded = true;
-    if (response.code === 200) {
+    if (response.status === 200) {
       this.isConfirmed = true;
     } else {
       this.message = "Failed to confirm your email.";
