@@ -15,5 +15,12 @@ export const login = data => {
 }
 
 export const confirmEmail = data => {
-    return get(`${serverHost}/api/confirm?code=${data.code}&uid=${data.uid}`)
+    return get(`${serverHost}/api/confirm?code=${data.code}&uid=${data.uid}`);
+}
+
+export const getUser = (token) => {
+    return get(`${serverHost}/api/self`, {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    });
 }

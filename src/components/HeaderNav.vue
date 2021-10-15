@@ -17,7 +17,7 @@ export default {
   name: "HeaderNav",
   computed: {
     isAuth() {
-      return this.$cookies.get("token");
+      return !!this.$root.user;
     }
   }
 }
