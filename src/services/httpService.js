@@ -1,16 +1,12 @@
 import axios from 'axios';
 
 const fetchFunction = async requestConfig => {
-    const response =  await axios(requestConfig).catch(error => {
-        return error.response.status >= 500 ?
-            {
-                status: error.response.status,
-                message: "Something went wrong"
-            }
-            : error.response;
-    });
-
-    return response;
+    try {
+        const response = await axios(requestConfig);
+        return response.data;
+    } catch (error) {
+        return Promise.reject(error?.response);
+    }
 }
 
 export const get = (url, headers) => {

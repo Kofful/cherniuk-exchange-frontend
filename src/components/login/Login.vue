@@ -8,7 +8,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.username.$error}"
                type="text" autocomplete="off" v-model.trim="v$.username.$model">
         <div class="invalid-feedback" v-for="error in v$.username.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
       <div class="form-group">
@@ -17,7 +17,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.password.$error}"
                type="password" v-model.trim="v$.password.$model">
         <div class="invalid-feedback" v-for="error in v$.password.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
     </div>
@@ -53,12 +53,17 @@ export default {
         username: this.username,
         password: this.password
       });
-      const response = await login(data)
-      if (response.data.token) {
-        this.$cookies.set("token", response.data.token);
+      try {
+        const response = await login(data);
+        this.$cookies.set("token", response.token);
+        this.$root.$forceUpdate();
         await this.$router.push({name: "Home"});
-      } else {
-        this.message = "Incorrect username or password";
+      } catch (error) {
+        if (error.status === 401) {
+          this.message = "Incorrect username or password";
+        } else {
+          this.message = "Something went wrong";
+        }
       }
     }
   }

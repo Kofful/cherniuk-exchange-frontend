@@ -8,7 +8,7 @@
                class="login-input form-control"
                type="text" autocomplete="off">
         <div class="invalid-feedback" v-for="error in v$.email.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
       <div class="form-group">
@@ -17,7 +17,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.username.$error}"
                type="text" autocomplete="off" v-model.trim="v$.username.$model">
         <div class="invalid-feedback" v-for="error in v$.username.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
       <div class="form-group">
@@ -26,7 +26,7 @@
                :class="{'login-input form-control': true, 'is-invalid': v$.password.$error}"
                type="password" v-model.trim="v$.password.$model">
         <div class="invalid-feedback" v-for="error in v$.password.$errors" :key="error">
-          {{error.$message}}
+          {{ error.$message }}
         </div>
       </div>
     </div>
@@ -65,14 +65,18 @@ export default {
         username: this.username,
         password: this.password
       });
-      const response = await register(data);
-      if (response.status === 200) {
+      try {
+        await register(data);
         this.$toast.info("<h3>We sent confirmation link to your email. Please, check your inbox.</h3>", {
           duration: 0
         });
         await this.$router.push({name: "Home"});
-      } else {
-        this.messages = response.data.slice();
+      } catch (error) {
+        if (error.status === 400) {
+          this.messages = error.data.slice();
+        } else {
+          this.messages = ["Something went wrong"];
+        }
       }
     }
   }
