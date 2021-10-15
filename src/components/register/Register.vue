@@ -72,10 +72,7 @@ export default {
         });
         await this.$router.push({name: "Home"});
       } else {
-        this.messages = [];
-        response.data.forEach(msg => {
-          this.messages.push(msg);
-        });
+        this.messages = response.data.slice();
       }
     }
   }
