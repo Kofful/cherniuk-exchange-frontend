@@ -13,17 +13,22 @@
 </template>
 
 <script>
-import {refreshUser} from "../services/userService";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "HeaderNav",
   computed: {
-    isAuth() {
-      return !!this.$store.state.user;
-    }
+    ...mapGetters([
+        "isAuth"
+    ])
+  },
+  methods: {
+    ...mapActions([
+        "refreshUser"
+    ])
   },
   async mounted() {
-    this.$store.commit("refreshUser", await refreshUser(this.$cookies.get("token")));
+    await this.refreshUser(this.$cookies.get("token"));
   },
 }
 </script>
