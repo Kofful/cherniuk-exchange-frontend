@@ -35,6 +35,7 @@
 import {login} from '/src/api/auth';
 import useVuelidate from '@vuelidate/core'
 import {loginSchema} from "../../utils/validation/auth";
+import {refreshUser} from "../../services/userService";
 
 export default {
   setup: () => {
@@ -56,7 +57,7 @@ export default {
       try {
         const response = await login(data);
         this.$cookies.set("token", response.token);
-        this.$root.$forceUpdate();
+        this.$store.commit("refreshUser", await refreshUser(this.$cookies.get("token")));
         await this.$router.push({name: "Home"});
       } catch (error) {
         if (error.status === 401) {

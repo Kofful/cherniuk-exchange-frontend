@@ -13,12 +13,17 @@
 </template>
 
 <script>
+import {refreshUser} from "../services/userService";
+
 export default {
   name: "HeaderNav",
   computed: {
     isAuth() {
-      return !!this.$root.user;
+      return !!this.$store.state.user;
     }
-  }
+  },
+  async mounted() {
+    this.$store.commit("refreshUser", await refreshUser(this.$cookies.get("token")));
+  },
 }
 </script>
