@@ -2,57 +2,38 @@
   "name": "cherniuk-exchange-frontend",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve --port 3000",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
-  },
   "dependencies": {
-    "@babel/core": "^7.15.0",
-    "@popperjs/core": "^2.9.3",
-    "@vuelidate/core": "^2.0.0-alpha.27",
-    "@vuelidate/validators": "^2.0.0-alpha.23",
-    "axios": "^0.22.0",
-    "core-js": "^3.6.5",
-    "vue": "^3.2.6",
-    "vue-router": "^4.0.11",
-    "vue-template-compiler": "^2.6.14",
-    "vue-toast-notification": "^2.0.1",
-    "vue3-cookies": "^1.0.1"
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.0.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^6.2.0",
-    "dotenv-webpack": "^7.0.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "vue-loader": "^16.5.0",
-    "vue-style-loader": "^4.1.3",
-    "webpack": "^4",
-    "webpack-cli": "^4.8.0"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
     "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
+      "react-app",
+      "react-app/jest"
+    ]
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
