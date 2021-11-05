@@ -14,3 +14,19 @@ export default function Routes() {
         </ReactRoutes>
     )
 }
+
+export const route = (routeName) => {
+    let path;
+    switch(routeName) {
+        case "login":
+            path = "/login";
+            break;
+        case "register":
+            path = "/register";
+            break;
+        case "home":
+        default:
+            path = "/";
+    }
+    return path;
+}
