@@ -41,7 +41,7 @@ const password = Joi.string()
     .required()
     .min(8)
     .max(64)
-    .error(errors => (setCustomMessages(errors, "Email")));
+    .error(errors => (setCustomMessages(errors, "Password")));
 
 export const loginSchema = Joi.object({
    username,
