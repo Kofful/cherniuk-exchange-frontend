@@ -7,7 +7,6 @@ export function Input(props) {
                    className={`login-input form-control ${props.errors && props.touched ? "is-invalid" : ""}`}
                    onChange={props.events.handleChange}
                    onBlur={props.events.handleBlur}
-                   value={props.events.value}
             />
             {props.touched && props.errors && <div className="invalid-feedback">
                 {props.errors}

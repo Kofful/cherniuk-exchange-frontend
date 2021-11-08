@@ -43,7 +43,6 @@ export default function Register() {
     return (
         <Formik initialValues={initialData} onSubmit={submit} validationSchema={registrationSchema}>
             {({
-                  values,
                   errors,
                   touched,
                   handleChange,
@@ -59,7 +58,6 @@ export default function Register() {
                             errors={errors.email}
                             touched={touched.email}
                             events={{
-                                handleSubmit,
                                 handleBlur,
                                 handleChange
                             }}
@@ -69,7 +67,6 @@ export default function Register() {
                             errors={errors.username}
                             touched={touched.username}
                             events={{
-                                handleSubmit,
                                 handleBlur,
                                 handleChange
                             }}
@@ -79,7 +76,6 @@ export default function Register() {
                             errors={errors.password}
                             touched={touched.password}
                             events={{
-                                handleSubmit,
                                 handleBlur,
                                 handleChange
                             }}
