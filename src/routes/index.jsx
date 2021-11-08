@@ -4,7 +4,7 @@ import Login from "../components/login/Login";
 import Register from "../components/register/Register";
 import Confirm from "../components/confirm/Confirm";
 
-export default function Routes() {
+const Routes = () => {
     return (
         <ReactRoutes>
             <Route path="/" element={<Home/>}/>
@@ -30,3 +30,5 @@ export const route = (routeName) => {
     }
     return path;
 }
+
+export default Routes;

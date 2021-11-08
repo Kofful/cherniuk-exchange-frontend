@@ -4,10 +4,10 @@ import {login} from "../../api/auth";
 import {route} from "../../routes";
 import {Formik} from "formik";
 import {loginSchema} from "../../utils/validation/auth";
-import {Input} from "../form/Input";
+import Input from "../form/Input";
 import {withCookies} from "react-cookie";
 
-export default withCookies(function Login(props) {
+const Login = props => {
 
     const initialData = {
         username: "",
@@ -82,4 +82,6 @@ export default withCookies(function Login(props) {
             )}
         </Formik>
     );
-});
+}
+
+export default withCookies(Login);

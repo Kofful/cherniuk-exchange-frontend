@@ -1,4 +1,4 @@
-export function Input(props) {
+const Input = props => {
     return (
         <div className="form-group">
             <label className="mt-3 text-capitalize" htmlFor={`${props.field}-input`}>{props.field}</label>
@@ -14,3 +14,5 @@ export function Input(props) {
         </div>
     );
 }
+
+export default Input;

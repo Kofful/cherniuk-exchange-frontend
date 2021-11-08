@@ -5,10 +5,10 @@ import {useState} from "react";
 import {register} from "../../api/auth";
 import {useToasts} from "react-toast-notifications";
 import {Formik} from "formik";
-import {Input} from "../form/Input";
+import Input from "../form/Input";
 
 
-export default function Register() {
+const Register = () => {
 
     const initialData = {
         email: "",
@@ -100,3 +100,5 @@ export default function Register() {
         </Formik>
     );
 }
+
+export default Register;
