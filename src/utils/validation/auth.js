@@ -1,54 +1,50 @@
-import Joi from "joi";
+import * as Yup from "yup";
 
-const setCustomMessages = (errors, fieldName) => {
-    errors.forEach(err => {
-        switch (err.code) {
-            case "string.empty":
-                err.message = `${fieldName} is required`;
-                break;
-            case "string.email":
-                err.message = "Email is not valid.";
-                break;
-            case "string.min":
-                err.message = `${fieldName} must be longer than ${err.local.limit} characters.`;
-                break;
-            case "string.max":
-                err.message = `${fieldName} must be shorter than ${err.local.limit} characters.`;
-                break;
-            case "string.pattern.base":
-                if (fieldName === "Username")
-                    err.message = "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"";
-                break;
-            default:
-        }
-    });
-    return errors;
+const message = (error, fieldName, ...additional) => {
+    let result = "";
+    switch (error) {
+        case "required":
+            result = `${fieldName} is required`;
+            break;
+        case "email":
+            result = "Email is not valid.";
+            break;
+        case "min":
+            result = `${fieldName} must be longer than ${additional} characters.`;
+            break;
+        case "max":
+            result = `${fieldName} must be shorter than ${additional} characters.`;
+            break;
+        case "regex":
+            if (fieldName === "Username")
+                result = "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"";
+            break;
+        default:
+    }
+    return result;
 }
 
-const email = Joi.string()
-    .required()
-    .email({tlds: {allow: false}})
-    .error(errors => (setCustomMessages(errors, "Email")));
+const email = Yup.string()
+    .required(message("required", "Email"))
+    .email(message("email", "Email"));
 
-const username = Joi.string()
-    .required()
-    .min(3)
-    .max(64)
-    .regex(/^[0-9a-zA-Z_.]*$/)
-    .error(errors => (setCustomMessages(errors, "Username")));
+const username = Yup.string()
+    .required(message("required", "Username"))
+    .min(3, message("min", "Username", 3))
+    .max(64, message("max", "Username", 64))
+    .matches(/^[0-9a-zA-Z_.]*$/, message("regex", "Username"));
 
-const password = Joi.string()
-    .required()
-    .min(8)
-    .max(64)
-    .error(errors => (setCustomMessages(errors, "Email")));
+const password = Yup.string()
+    .required(message("required", "Password"))
+    .min(8,  message("min", "Password", 8))
+    .max(64,  message("max", "Password", 64));
 
-export const loginSchema = Joi.object({
-   username,
-   password
+export const loginSchema = Yup.object().shape({
+    username,
+    password
 });
 
-export const registrationSchema = Joi.object({
+export const registrationSchema = Yup.object().shape({
     email,
     username,
     password
