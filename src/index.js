@@ -7,9 +7,9 @@ import {ToastProvider} from "react-toast-notifications";
 const rootElement = document.getElementById("root");
 render(
     <>
-        <HeaderNav/>
         <ToastProvider>
             <BrowserRouter>
+                <HeaderNav/>
                 <Routes/>
             </BrowserRouter>
         </ToastProvider>
