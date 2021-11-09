@@ -86,11 +86,13 @@ const Login = ({cookies}) => {
 };
 
 Login.propTypes = {
-    cookies: PropTypes.instanceOf(Cookies)
+    cookies: PropTypes.instanceOf(Cookies),
+    allCookies: PropTypes.object
 };
 
 Login.defaultProps = {
-    cookies: new Cookies()
+    cookies: new Cookies(),
+    allCookies: {}
 };
 
 export default withCookies(Login);
