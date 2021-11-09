@@ -99,6 +99,6 @@ const Register = () => {
             )}
         </Formik>
     );
-}
+};
 
 export default Register;

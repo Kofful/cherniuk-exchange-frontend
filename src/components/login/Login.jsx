@@ -5,9 +5,10 @@ import {route} from "../../routes";
 import {Formik} from "formik";
 import {loginSchema} from "../../utils/validation/auth";
 import Input from "../form/Input";
-import {withCookies} from "react-cookie";
+import {Cookies, withCookies} from "react-cookie";
+import PropTypes from "prop-types";
 
-const Login = props => {
+const Login = ({cookies}) => {
 
     const initialData = {
         username: "",
@@ -21,7 +22,7 @@ const Login = props => {
     const submit = async (values) => {
         try {
             const response = await login(values);
-            props.cookies.set("token", response.token);
+            cookies.set("token", response.token);
             navigate(route("home"));
         } catch (error) {
             if (error.status === 401) {
@@ -82,6 +83,14 @@ const Login = props => {
             )}
         </Formik>
     );
-}
+};
+
+Login.propTypes = {
+    cookies: PropTypes.instanceOf(Cookies)
+};
+
+Login.defaultProps = {
+    cookies: new Cookies()
+};
 
 export default withCookies(Login);
