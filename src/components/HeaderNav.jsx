@@ -1,11 +1,9 @@
 import {route} from "../routes";
 import {Link} from "react-router-dom";
-import {withCookies, Cookies} from "react-cookie";
-import PropTypes from "prop-types";
 import {observer} from "mobx-react";
 import {useStore} from "../stores";
 
-const HeaderNav = ({cookies, allCookies}) => {
+const HeaderNav = () => {
     const {userStore} = useStore();
     const {user} = userStore;
 
@@ -25,14 +23,4 @@ const HeaderNav = ({cookies, allCookies}) => {
     );
 };
 
-HeaderNav.propTypes = {
-    cookies: PropTypes.instanceOf(Cookies),
-    allCookies: PropTypes.object
-};
-
-HeaderNav.defaultProps = {
-    cookies: new Cookies(),
-    allCookies: {}
-};
-
-export default withCookies(observer(HeaderNav));
+export default observer(HeaderNav);

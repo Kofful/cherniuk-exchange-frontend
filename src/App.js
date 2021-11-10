@@ -1,17 +1,12 @@
 import {ToastProvider} from "react-toast-notifications";
-import {BrowserRouter} from "react-router-dom";
-import HeaderNav from "./components/HeaderNav";
-import Routes from "./routes";
 import {StoreProvider, store} from "./stores";
+import Router from "./components/router/Router";
 
 const App = () => {
     return (
         <ToastProvider>
             <StoreProvider value={store}>
-                <BrowserRouter>
-                    <HeaderNav/>
-                    <Routes/>
-                </BrowserRouter>
+                <Router/>
             </StoreProvider>
         </ToastProvider>
     );
