@@ -3,10 +3,11 @@ import {Link} from "react-router-dom";
 import {withCookies, Cookies} from "react-cookie";
 import PropTypes from "prop-types";
 import {observer} from "mobx-react";
-import getUserStore, {User} from "../stores/UserStore";
+import {useStore} from "../stores";
 
-const HeaderNav = ({cookies, allCookies, userStore}) => {
-    const {username} = userStore;
+const HeaderNav = ({cookies, allCookies}) => {
+    const {userStore} = useStore();
+    const {user} = userStore;
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -14,9 +15,9 @@ const HeaderNav = ({cookies, allCookies, userStore}) => {
                 <div className="collapse navbar-collapse justify-content-between">
                     <Link className="navbar-brand" to={route("home")}>Exchange</Link>
                     <div>
-                        {username && <Link to={route("logout")} className="btn btn-danger">Log out</Link>}
+                        {user && <Link to={route("logout")} className="btn btn-danger">Log out</Link>}
 
-                        {!username && <Link to={route("login")} className="btn btn-success">Log in</Link>}
+                        {!user && <Link to={route("login")} className="btn btn-success">Log in</Link>}
                     </div>
                 </div>
             </div>
@@ -26,14 +27,12 @@ const HeaderNav = ({cookies, allCookies, userStore}) => {
 
 HeaderNav.propTypes = {
     cookies: PropTypes.instanceOf(Cookies),
-    allCookies: PropTypes.object,
-    userStore: PropTypes.instanceOf(User)
+    allCookies: PropTypes.object
 };
 
 HeaderNav.defaultProps = {
     cookies: new Cookies(),
-    allCookies: {},
-    userStore: getUserStore()
+    allCookies: {}
 };
 
-export default (withCookies(observer(HeaderNav)));
+export default withCookies(observer(HeaderNav));

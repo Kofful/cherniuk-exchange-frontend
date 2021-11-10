@@ -1,28 +1,18 @@
 import {action, makeObservable, observable} from "mobx";
 
-export class User {
-    username = "";
+export class UserStore {
+    user = null;
 
     constructor() {
         makeObservable(this, {
-            username: observable,
-            updateUsername: action,
+            user: observable,
+            setUser: action,
         });
     }
 
-    updateUsername = username => {
-        this.username = username;
+    setUser = data => {
+        this.user = data;
     }
 
 }
-
-let UserStore;
-
-const getUserStore = () => {
-    if(!UserStore) {
-        UserStore = new User();
-    }
-    return UserStore;
-};
-
-export default getUserStore;
+export default UserStore;
