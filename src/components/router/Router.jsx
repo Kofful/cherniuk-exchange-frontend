@@ -4,20 +4,21 @@ import Routes from "../../routes";
 import {useStore} from "../../stores";
 import {useCallback} from "react";
 import {getUser} from "../../api/user";
-import {Cookies, withCookies} from "react-cookie";
-import PropTypes from "prop-types";
+import {useCookies} from "react-cookie";
 
-const Router = ({allCookies}) => {
+const Router = () => {
     const {userStore} = useStore();
+
+    const [cookies, setCookie, removeCookie] = useCookies();
 
     const setUser = useCallback(async () => {
         try {
-            const user = await getUser(allCookies.token);
+            const user = await getUser(cookies.token);
             userStore.setUser(user);
         } catch (e) {
             userStore.setUser(null);
         }
-    }, [userStore, allCookies]);
+    }, [userStore, cookies]);
 
     setUser();
 
@@ -29,14 +30,4 @@ const Router = ({allCookies}) => {
     );
 };
 
-Router.propTypes = {
-    cookies: PropTypes.instanceOf(Cookies),
-    allCookies: PropTypes.object
-};
-
-Router.defaultProps = {
-    cookies: new Cookies(),
-    allCookies: {}
-};
-
-export default withCookies(Router);
+export default Router;
