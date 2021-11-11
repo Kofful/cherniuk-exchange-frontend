@@ -9,12 +9,13 @@ import {useCookies} from "react-cookie";
 const Router = () => {
     const {userStore} = useStore();
 
-    const [cookies, setCookie, removeCookie] = useCookies();
+    const [cookies] = useCookies();
 
     const setUser = useCallback(async () => {
+        userStore.setIsLoading(true);
         try {
-            const user = await getUser(cookies.token);
-            userStore.setUser(user);
+            const json = await getUser(cookies.token);
+            userStore.setUser(json.user);
         } catch (e) {
             userStore.setUser(null);
         }
