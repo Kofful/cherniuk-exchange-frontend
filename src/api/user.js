@@ -1,9 +1,7 @@
-import {get} from "../services/httpService";
-
-const serverHost = process.env.REACT_APP_SERVER_HOST;
+import {get} from "../services/exchangeHttpService";
 
 export const getUser = token => {
-    return get(`${serverHost}/api/self`, {
+    return get("/api/self", {
         "Authorization": `Bearer ${token}`
     });
 };
