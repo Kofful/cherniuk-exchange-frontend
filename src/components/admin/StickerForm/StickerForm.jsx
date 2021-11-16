@@ -1,6 +1,6 @@
 import {Formik} from "formik";
 import {stickerSchema} from "../../../utils/validation/sticker";
-import {Input} from "../../form/Input";
+import Input from "../../form/Input";
 import {useState} from "react";
 import {addSticker} from "../../../api/stickers";
 
