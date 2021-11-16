@@ -1,20 +1,20 @@
 import {action, makeObservable, observable} from "mobx";
 
-export class UserStore {
-    user = null;
+export class StickerStore {
+    stickers = null;
     isLoading = false;
 
     constructor() {
         makeObservable(this, {
-            user: observable,
+            stickers: observable,
             isLoading: observable,
-            setUser: action,
+            updateStickers: action,
             setIsLoading: action
         });
     }
 
-    setUser = data => {
-        this.user = data;
+    updateStickers = data => {
+        this.stickers = data;
         this.isLoading = false;
     }
 
@@ -23,4 +23,5 @@ export class UserStore {
     }
 
 }
-export default UserStore;
+
+export default StickerStore;

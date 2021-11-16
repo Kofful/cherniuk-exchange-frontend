@@ -1,11 +1,24 @@
 import PropTypes from "prop-types";
 
 const Input = ({field, errors, touched, events}) => {
+    let type;
+    switch (field) {
+        case "password":
+            type = "password";
+            break;
+        case "stickerPath":
+            type = "file";
+            break;
+        default:
+            type = "text";
+    }
     return (
         <div className="form-group">
             <label className="mt-3 text-capitalize" htmlFor={`${field}-input`}>{field}</label>
             <input id={`${field}-input`} name={field}
-                   type={field === "password" ? "password" : "text"} autoComplete="off"
+                   type={type}
+                   accept={type === "file" ? "image/png" : null}
+                   autoComplete="off"
                    className={`login-input form-control ${errors && touched ? "is-invalid" : ""}`}
                    onChange={events.handleChange}
                    onBlur={events.handleBlur}

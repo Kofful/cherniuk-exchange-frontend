@@ -1,7 +1,9 @@
 import {useStore} from "../../stores";
 import {observer} from "mobx-react";
 import Page403 from "../errorPages/Page403";
-import Loader from "react-loader-spinner";
+import Spinner from "../spinner/Spinner";
+import StickerList from "./StickerList/StickerList";
+import StickerForm from "./StickerForm/StickerForm";
 
 const Admin = () => {
     const {userStore} = useStore();
@@ -15,13 +17,18 @@ const Admin = () => {
 
     return (
         <>
-            {user && <p>{user.username}</p>}
-            {isLoading === true && <div className="position-absolute d-flex justify-content-center align-items-center top-50 w-100">
-                <Loader type="BallTriangle"
-                                           color="#6600CC"
-                                           height={100}
-                                           width={100}/>
-            </div>}
+            {!isLoading && user &&
+            <>
+                <StickerList/>
+                <StickerForm/>
+            </>
+            }
+            {isLoading === true &&
+            <div
+                className="position-absolute d-flex justify-content-center align-items-center top-50 start-50 translate-middle">
+                <Spinner/>
+            </div>
+            }
         </>
     );
 };

@@ -1,11 +1,14 @@
 import UserStore from "./UserStore";
 import {createContext, useContext} from "react";
+import StickerStore from "./StickerStore";
 
 export class Store {
-    userStore
+    userStore;
+    stickerStore;
 
     constructor() {
         this.userStore = new UserStore();
+        this.stickerStore = new StickerStore();
     }
 }
 

@@ -2,7 +2,7 @@ import {BrowserRouter} from "react-router-dom";
 import HeaderNav from "../HeaderNav";
 import Routes from "../../routes";
 import {useStore} from "../../stores";
-import {useCallback} from "react";
+import {useEffect} from "react";
 import {getUser} from "../../api/user";
 import {useCookies} from "react-cookie";
 
@@ -11,22 +11,26 @@ const Router = () => {
 
     const [cookies] = useCookies();
 
-    const setUser = useCallback(async () => {
-        userStore.setIsLoading(true);
-        try {
-            const json = await getUser(cookies.token);
-            userStore.setUser(json.user);
-        } catch (e) {
-            userStore.setUser(null);
+    useEffect(() => {
+        const setUser = async () => {
+            userStore.setIsLoading(true);
+            try {
+                const json = await getUser(cookies.token);
+                userStore.setUser(json.user);
+            } catch (e) {
+                userStore.setUser(null);
+            }
         }
-    }, [userStore, cookies]);
+        setUser();
+    }, [userStore, cookies.token]);
 
-    setUser();
 
     return (
         <BrowserRouter>
             <HeaderNav/>
-            <Routes/>
+            <div className="container">
+                <Routes/>
+            </div>
         </BrowserRouter>
     );
 };
