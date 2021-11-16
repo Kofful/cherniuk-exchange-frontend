@@ -13,7 +13,7 @@ const coefficient = Yup.number()
 const stickerPath = Yup.string()
     .required("Sticker image is required!");
 
-const sticker = Yup.object()
+const sticker = Yup.mixed()
     .required("Sticker image is required!")
 
 export const stickerSchema = Yup.object().shape({

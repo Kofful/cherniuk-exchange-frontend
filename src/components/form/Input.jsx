@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Input = ({field, errors, touched, events}) => {
+const Input = ({field, errors, touched, events, value}) => {
     let type;
     switch (field) {
         case "password":
@@ -22,6 +22,7 @@ const Input = ({field, errors, touched, events}) => {
                    className={`login-input form-control ${errors && touched ? "is-invalid" : ""}`}
                    onChange={events.handleChange}
                    onBlur={events.handleBlur}
+                   value={value}
             />
             {touched && errors && <div className="invalid-feedback">
                 {errors}
