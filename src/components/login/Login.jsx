@@ -1,27 +1,89 @@
-import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {login} from "../../api/auth";
 import {route} from "../../routes";
-import {observer} from "mobx-react";
-import {useStore} from "../../stores";
+import {Formik} from "formik";
+import {loginSchema} from "../../utils/validation/auth";
+import Input from "../form/Input";
 import {useCookies} from "react-cookie";
 
 const Login = () => {
-    const navigate = useNavigate();
 
-    const {userStore} = useStore();
+    const initialData = {
+        username: "",
+        password: ""
+    };
 
     const [cookies, setCookie] = useCookies();
 
-    return (
-        <>
-        <h1>Login</h1>
-        <button onClick={async () => {
-            //simulating successful login
-            const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MzY1NTk3NDksImV4cCI6MTYzNjU2MzM0OSwicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6IktvZmZ1bCJ9.gyI_9OqdyQw4yqJq9pqAKfxFogkzrTD4XZSSCt41cjQGjCqZoyxAYM6gE5InfkYNkLVutaE-KmVzekfwZ2jvr9-WgDUYBeli4jqNUrvVGuRFmiO1AvSWyYaOe0fj9F5Z6plVtkLamVciXnlZlC9yBrrUzSptf3d-QIOLVpb5AabVrVLzmyBtSX_MM_bT3g-Lhw_4N012lvo-evNY1dLuoySLdy8GnCH9wMoOI_xdFXYQCaFQJWhmAJ_fQYg7y5vVo20QnufVscOGN3r_RWcYULUKjE--G4_YNG_96Elv79Hd0YOu2YyurMRVJlZjeH3209w6kxNI4KhtGqcUV5hZ6Q";
-            setCookie("token", token);
-            navigate(route("home"));
-        }}>Reload</button>
-        </>
-    );
-}
+    const [message, setMessage] = useState("");
 
-export default observer(Login);
+    const navigate = useNavigate();
+
+    const submit = async (values) => {
+        try {
+            const response = await login(values);
+            setCookie("token", response.token);
+            navigate(route("home"));
+        } catch (error) {
+            if (error.status === 401) {
+                setMessage("Incorrect username or password");
+            } else {
+                setMessage("Something went wrong");
+            }
+        }
+    }
+
+    return (
+        <Formik initialValues={initialData} onSubmit={submit} validationSchema={loginSchema}>
+            {({
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting
+              }) => (
+                <form onSubmit={handleSubmit}
+                      className="position-absolute top-50 start-50 translate-middle w-50 p-5 border border-white rounded">
+                    <div className="input-data">
+                        <Input
+                            field="username"
+                            errors={errors.username}
+                            touched={touched.username}
+                            events={{
+                                handleSubmit,
+                                handleBlur,
+                                handleChange
+                            }}
+                        />
+                        <Input
+                            field="password"
+                            errors={errors.password}
+                            touched={touched.password}
+                            events={{
+                                handleSubmit,
+                                handleBlur,
+                                handleChange
+                            }}
+                        />
+                    </div>
+                    <div className="link-div mt-3 d-flex flex-column">
+                        <p>
+                            No account yet?
+                            <Link to={route("register")}>Register</Link>
+                        </p>
+                        <button className="btn btn-success w-50 align-self-center" type={"submit"}
+                                disabled={isSubmitting}>Login
+                        </button>
+                        <span className="text-danger align-self-center">
+                                {message}
+                        </span>
+                    </div>
+                </form>
+            )}
+        </Formik>
+    );
+};
+
+export default Login;

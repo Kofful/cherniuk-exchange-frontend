@@ -1,11 +1,9 @@
-import {Link} from "react-router-dom";
-import {route} from "../../routes";
-
-export default function Home() {
+const Home = () => {
   return (
     <div className="App">
       <h1>WELCOME TO REACT!!!!</h1>
-        <Link to={route("admin")}>Admin</Link>
     </div>
   );
 }
+
+export default Home;

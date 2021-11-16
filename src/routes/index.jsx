@@ -6,7 +6,7 @@ import Confirm from "../components/confirm/Confirm";
 import Admin from "../components/admin/Admin";
 import Page404 from "../components/errorPages/Page404";
 
-export default function Routes() {
+const Routes = () => {
     return (
         <ReactRoutes>
             <Route path="/" element={<Home/>}/>
@@ -37,3 +37,5 @@ export const route = (routeName) => {
     }
     return path;
 }
+
+export default Routes;
