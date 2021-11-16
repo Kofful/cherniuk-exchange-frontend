@@ -1,19 +1,17 @@
-import {get, post} from '../services/httpService';
-
-const serverHost = process.env.REACT_APP_SERVER_HOST;
+import {get, post} from '../services/exchangeHttpService';
 
 export const register = data => {
-    return post(`${serverHost}/api/register`, data, {
+    return post("/api/register", data, {
         'Content-Type': 'application/json'
     });
 }
 
 export const login = data => {
-    return post(`${serverHost}/api/login_check`, data, {
+    return post("/api/login_check", data, {
         'Content-Type': 'application/json'
     });
 }
 
 export const confirmEmail = data => {
-    return get(`${serverHost}/api/confirm?code=${data.code}&uid=${data.uid}`)
+    return get(`/api/confirm?code=${data.code}&uid=${data.uid}`)
 }
