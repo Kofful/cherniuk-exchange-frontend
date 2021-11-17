@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {observer} from "mobx-react";
 import {useStore} from "../stores";
 import {useCookies} from "react-cookie";
+import {FormattedMessage} from "react-intl";
 
 const HeaderNav = () => {
     const {userStore} = useStore();
@@ -23,9 +24,19 @@ const HeaderNav = () => {
                 <div className="collapse navbar-collapse justify-content-between">
                     <Link className="navbar-brand" to={route("home")}>Exchange</Link>
                     <div>
-                        {user && <div className="btn btn-danger" onClick={logout}>Log out</div>}
+                        {user && <div className="btn btn-danger" onClick={logout}>
+                            <FormattedMessage
+                                id="logout"
+                                defaultMessage="Log out"
+                            /></div>}
 
-                        {!user && <Link to={route("login")} className="btn btn-success">Log in</Link>}
+                        {!user && <Link to={route("login")} className="btn btn-success">
+                            <FormattedMessage
+                                id="login"
+                                defaultMessage="Log in"
+                            />
+                        </Link>
+                        }
                     </div>
                 </div>
             </div>
