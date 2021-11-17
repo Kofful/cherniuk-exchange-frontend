@@ -7,8 +7,9 @@ import {useEffect} from "react";
 const IntlWrapper = () => {
     const {localeStore} = useStore();
 
+    const defaultLocale = "ru";
+
     useEffect(() => {
-        const defaultLocale = "ru";
         const chosenLocale = window.localStorage.getItem("locale");
 
         if(chosenLocale) {
@@ -16,10 +17,12 @@ const IntlWrapper = () => {
         } else {
             localeStore.updateLocale(defaultLocale);
         }
-    });
+    }, []);
+
+    const locale = localeStore.locale === "" ? defaultLocale : localeStore.locale;
 
     return (
-        <IntlProvider locale={localeStore.locale} messages={localeStore.messages}>
+        <IntlProvider locale={locale} messages={localeStore.messages} onError={() => {}}>
             <Router/>
         </IntlProvider>
     );
