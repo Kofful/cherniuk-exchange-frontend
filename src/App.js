@@ -1,6 +1,6 @@
 import {ToastProvider} from "react-toast-notifications";
 import {StoreProvider, store} from "./stores";
-import IntlWrapper from "./components/localization/IntlWrapper";
+import IntlWrapper from "./components/localization/IntlWrapper.jsx";
 
 const App = () => {
     return (

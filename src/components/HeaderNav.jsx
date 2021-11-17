@@ -4,6 +4,7 @@ import {observer} from "mobx-react";
 import {useStore} from "../stores";
 import {useCookies} from "react-cookie";
 import {FormattedMessage} from "react-intl";
+import LanguagePicker from "./localization/LanguagePicker";
 
 const HeaderNav = () => {
     const {userStore} = useStore();
@@ -23,7 +24,8 @@ const HeaderNav = () => {
             <div className="container-fluid">
                 <div className="collapse navbar-collapse justify-content-between">
                     <Link className="navbar-brand" to={route("home")}>Exchange</Link>
-                    <div>
+                    <div className="d-flex">
+                        <LanguagePicker/>
                         {user && <div className="btn btn-danger" onClick={logout}>
                             <FormattedMessage
                                 id="logout"
