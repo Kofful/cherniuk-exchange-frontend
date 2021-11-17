@@ -7,7 +7,7 @@ import {useEffect} from "react";
 const IntlWrapper = () => {
     const {localeStore} = useStore();
 
-    const defaultLocale = "ru";
+    const defaultLocale = "en";
 
     useEffect(() => {
         const chosenLocale = window.localStorage.getItem("locale");

@@ -1,3 +1,18 @@
 {
-  "login": "Log in"
+  "login": "Log in",
+  "logout": "Log out",
+  "something.went.wrong": "Something went wrong",
+  "admin.add.sticker": "Add new sticker",
+  "admin.add": "Add",
+  "sticker": "Sticker",
+  "sticker.name": "Name",
+  "sticker.name.required": "Sticker name is required!",
+  "sticker.stickerPath": "Sticker",
+  "sticker.coefficient": "Coefficient",
+  "sticker.coefficient.required": "Sticker coefficient is required!",
+  "sticker.coefficient.number": "Coefficient must be a number!",
+  "sticker.coefficient.integer": "Sticker coefficient must be an integer!",
+  "sticker.coefficient.min": "Sticker coefficient must be 0 or greater!",
+  "sticker.coefficient.max": "Sticker coefficient must be 100,000 or less!",
+  "sticker.image.required": "Sticker image is required!"
 }

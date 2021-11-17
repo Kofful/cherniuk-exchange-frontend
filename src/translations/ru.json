@@ -1,3 +1,18 @@
 {
-  "login": "Войти"
+  "login": "Войти",
+  "logout": "Выйти",
+  "something.went.wrong": "Что-то пошло не так",
+  "admin.add.sticker": "Добавить новый стикер",
+  "admin.add": "Добавить",
+  "sticker": "Стикер",
+  "sticker.name": "Название",
+  "sticker.name.required": "Название стикера является обязательным!",
+  "sticker.stickerPath": "Стикер",
+  "sticker.coefficient": "Коеффициент",
+  "sticker.coefficient.required": "Коеффициент является обязательным!",
+  "sticker.coefficient.number": "Коеффициент должен быть числом!",
+  "sticker.coefficient.integer": "Коеффициент должен быть целым числом!",
+  "sticker.coefficient.min": "Коеффициент должен быть равен 0 или более!",
+  "sticker.coefficient.max": "Коеффициент должен быть равен 100,000 или менее!",
+  "sticker.image.required": "Изображение стикера является обязательным!"
 }
