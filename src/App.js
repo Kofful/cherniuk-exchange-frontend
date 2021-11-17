@@ -1,12 +1,12 @@
 import {ToastProvider} from "react-toast-notifications";
 import {StoreProvider, store} from "./stores";
-import Router from "./components/router/Router";
+import IntlWrapper from "./components/localization/IntlWrapper";
 
 const App = () => {
     return (
         <ToastProvider>
             <StoreProvider value={store}>
-                <Router/>
+                <IntlWrapper/>
             </StoreProvider>
         </ToastProvider>
     );
