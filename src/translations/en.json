@@ -20,5 +20,7 @@
   "confirm.email.fail": "Failed to confirm your email.",
   "confirm.email.confirmed": "Email is confirmed!",
   "loading": "Loading...",
-  "return.home": "Return to home page"
+  "return.home": "Return to home page",
+  "access.denied": "Access Denied",
+  "page.not.found": "Page Not Found"
 }
