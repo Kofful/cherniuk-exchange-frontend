@@ -56,13 +56,13 @@ const StickerList = () => {
                         </div>
                         <div className="col-4">
                             <FormattedMessage
-                                id="sticker.name"
+                                id="input.name"
                                 defaultMessage="Name"
                             />
                         </div>
                         <div className="col-4">
                             <FormattedMessage
-                                id="sticker.coefficient"
+                                id="input.coefficient"
                                 defaultMessage="Coefficient"
                             />
                         </div>

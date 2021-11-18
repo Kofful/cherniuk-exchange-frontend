@@ -6,6 +6,7 @@ import {register} from "../../api/auth";
 import {useToasts} from "react-toast-notifications";
 import {Formik} from "formik";
 import Input from "../form/Input";
+import {FormattedMessage, useIntl} from "react-intl";
 
 
 const Register = () => {
@@ -17,6 +18,8 @@ const Register = () => {
     };
 
     const [messages, setMessages] = useState([]);
+
+    const intl = useIntl();
 
     const {addToast} = useToasts();
 
@@ -35,7 +38,12 @@ const Register = () => {
             if (error.status === 400) {
                 setMessages(error.data.slice());
             } else {
-                setMessages(["Something went wrong"]);
+                setMessages([
+                    intl.formatMessage({
+                        id: "something.went.wrong",
+                        defaultMessage: "Something went wrong"
+                    })
+                ]);
             }
         }
     }
@@ -83,11 +91,23 @@ const Register = () => {
                     </div>
                     <div className="link-div mt-3 d-flex flex-column">
                         <p>
-                            Already have an account?
-                            <Link to={route("login")}>Log in</Link>
+                            <FormattedMessage
+                                id="already.have.account"
+                                defaultMessage="Already have an account?"
+                            />
+                            <Link to={route("login")}>
+                                <FormattedMessage
+                                    id="login"
+                                    defaultMessage="Log in"
+                                />
+                            </Link>
                         </p>
                         <button className="btn btn-success w-50 align-self-center" type={"submit"}
-                                disabled={isSubmitting}>Register
+                                disabled={isSubmitting}>
+                            <FormattedMessage
+                                id="auth.register"
+                                defaultMessage="Register"
+                            />
                         </button>
                         {messages.map(message =>
                             <span className="text-danger align-self-center" key={message}>

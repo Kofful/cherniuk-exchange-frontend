@@ -15,9 +15,9 @@ const Input = ({field, errors, touched, events, value}) => {
     }
     return (
         <div className="form-group">
-            <label className="mt-3 text-capitalize" htmlFor={`${field}-input`}>
+            <label className="mt-3" htmlFor={`${field}-input`}>
                 <FormattedMessage
-                    id={`sticker.${field}`}
+                    id={`input.${field}`}
                     defaultMessage={field}
                 />
             </label>

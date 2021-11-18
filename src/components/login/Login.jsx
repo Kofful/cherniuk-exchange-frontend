@@ -6,6 +6,7 @@ import {Formik} from "formik";
 import {loginSchema} from "../../utils/validation/auth";
 import Input from "../form/Input";
 import {useCookies} from "react-cookie";
+import {FormattedMessage} from "react-intl";
 
 const Login = () => {
 
@@ -70,11 +71,23 @@ const Login = () => {
                     </div>
                     <div className="link-div mt-3 d-flex flex-column">
                         <p>
-                            No account yet?
-                            <Link to={route("register")}>Register</Link>
+                            <FormattedMessage
+                                id="no.account"
+                                defaultMessage="No account yet?"
+                            />
+                            <Link to={route("register")}>
+                                <FormattedMessage
+                                    id="auth.register"
+                                    defaultMessage="Register"
+                                />
+                            </Link>
                         </p>
                         <button className="btn btn-success w-50 align-self-center" type={"submit"}
-                                disabled={isSubmitting}>Login
+                                disabled={isSubmitting}>
+                            <FormattedMessage
+                                id="login"
+                                defaultMessage="Log in"
+                            />
                         </button>
                         <span className="text-danger align-self-center">
                                 {message}
