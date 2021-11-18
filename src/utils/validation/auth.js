@@ -1,43 +1,19 @@
 import * as Yup from "yup";
 
-const message = (error, fieldName, ...additional) => {
-    let result = "";
-    switch (error) {
-        case "required":
-            result = `${fieldName} is required`;
-            break;
-        case "email":
-            result = "Email is not valid.";
-            break;
-        case "min":
-            result = `${fieldName} must be longer than ${additional} characters.`;
-            break;
-        case "max":
-            result = `${fieldName} must be shorter than ${additional} characters.`;
-            break;
-        case "regex":
-            if (fieldName === "Username")
-                result = "Username must contain only latin letters, numbers and specific symbols like: \"_\", \".\"";
-            break;
-        default:
-    }
-    return result;
-}
-
 const email = Yup.string()
-    .required(message("required", "Email"))
-    .email(message("email", "Email"));
+    .required("user.email.required")
+    .email("user.email.regex");
 
 const username = Yup.string()
-    .required(message("required", "Username"))
-    .min(3, message("min", "Username", 3))
-    .max(64, message("max", "Username", 64))
-    .matches(/^[0-9a-zA-Z_.]*$/, message("regex", "Username"));
+    .required("user.username.required")
+    .min(3, "user.username.min")
+    .max(64, "user.username.max")
+    .matches(/^[0-9a-zA-Z_.]*$/, "user.username.regex");
 
 const password = Yup.string()
-    .required(message("required", "Password"))
-    .min(8,  message("min", "Password", 8))
-    .max(64,  message("max", "Password", 64));
+    .required("user.password.required")
+    .min(8,  "user.password.min")
+    .max(64,  "user.password.max");
 
 export const loginSchema = Yup.object().shape({
     username,

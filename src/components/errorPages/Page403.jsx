@@ -1,6 +1,13 @@
+import {FormattedMessage} from "react-intl";
+
 const Page403 = () => {
     return (
-        <h1>Access Denied</h1>
+        <h1>
+            <FormattedMessage
+                id="access.denied"
+                defaultMessage="Access Denied"
+            />
+        </h1>
     );
 };
 

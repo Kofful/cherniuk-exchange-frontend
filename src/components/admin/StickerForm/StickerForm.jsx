@@ -2,6 +2,7 @@ import {Formik} from "formik";
 import {stickerSchema} from "../../../utils/validation/sticker";
 import Input from "../../form/Input";
 import {useState} from "react";
+import {FormattedMessage, useIntl} from "react-intl";
 import {addSticker} from "../../../api/stickers";
 
 const StickerForm = () => {
@@ -11,6 +12,8 @@ const StickerForm = () => {
         stickerPath: "",
         sticker: null
     };
+
+    const intl = useIntl();
 
     const [messages, setMessages] = useState([]);
 
@@ -23,14 +26,24 @@ const StickerForm = () => {
             if (error.status === 400) {
                 setMessages(error.data.slice());
             } else {
-                setMessages(["Something went wrong"]);
+                setMessages([
+                    intl.formatMessage({
+                        id: "something.went.wrong",
+                        defaultMessage: "Something went wrong"
+                    })
+                ]);
             }
         }
     };
 
     return (
         <div className="d-flex flex-column align-items-center">
-            <h1 className="mt-5">Add new sticker</h1>
+            <h1 className="mt-5">
+                <FormattedMessage
+                    id="admin.add.sticker"
+                    defaultMessage="Add new sticker"
+                />
+            </h1>
             <Formik
                 initialValues={defaultData}
                 validationSchema={stickerSchema}
@@ -86,7 +99,11 @@ const StickerForm = () => {
                         />
                         <div className="mt-4 mb-4 d-flex flex-column">
                             <button className="btn btn-success w-50 align-self-center" type={"submit"}
-                                    disabled={isSubmitting}>Add
+                                    disabled={isSubmitting}>
+                                <FormattedMessage
+                                id="admin.add"
+                                defaultMessage="Add"
+                                />
                             </button>
                             {messages.map(message =>
                                     <span className="text-danger align-self-center" key={message}>

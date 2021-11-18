@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import {FormattedMessage} from "react-intl";
 
 const Input = ({field, errors, touched, events, value}) => {
     let type;
@@ -14,7 +15,12 @@ const Input = ({field, errors, touched, events, value}) => {
     }
     return (
         <div className="form-group">
-            <label className="mt-3 text-capitalize" htmlFor={`${field}-input`}>{field}</label>
+            <label className="mt-3" htmlFor={`${field}-input`}>
+                <FormattedMessage
+                    id={`input.${field}`}
+                    defaultMessage={field}
+                />
+            </label>
             <input id={`${field}-input`} name={field}
                    type={type}
                    accept={type === "file" ? "image/png" : null}
@@ -25,7 +31,9 @@ const Input = ({field, errors, touched, events, value}) => {
                    value={value}
             />
             {touched && errors && <div className="invalid-feedback">
-                {errors}
+                <FormattedMessage
+                    id={errors}
+                />
             </div>}
         </div>
     );

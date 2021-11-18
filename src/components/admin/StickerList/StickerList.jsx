@@ -6,12 +6,14 @@ import {getStickers} from "../../../api/stickers";
 import {useCookies} from "react-cookie";
 import StickerRow from "./StickerRow";
 import {updateSticker as updateStickerInDb} from "../../../api/stickers";
+import {FormattedMessage} from "react-intl";
 
 const StickerList = () => {
     const {stickerStore} = useStore();
     const {stickers, isLoading} = stickerStore;
 
     const [page, changePage] = useState(1);
+    const [maxPages, changeMaxPages] = useState(1);
 
     const [cookies] = useCookies();
 
@@ -31,8 +33,10 @@ const StickerList = () => {
             try {
                 const json = await getStickers(page, cookies.token);
                 stickerStore.updateStickers(json.stickers);
+                changeMaxPages(Math.floor((json.count - 1) / 10) + 1);
             } catch {
                 stickerStore.updateStickers({});
+                changeMaxPages(1);
             }
         }
         storeStickers();
@@ -44,9 +48,24 @@ const StickerList = () => {
                 <div className="table table-dark mt-5 mx-2">
                     <div className="d-flex w-100 p-2 border border-secondary">
                         <div className="col">#</div>
-                        <div className="col-3">Sticker</div>
-                        <div className="col-4">Name</div>
-                        <div className="col-4">Coefficient</div>
+                        <div className="col-3">
+                            <FormattedMessage
+                                id="sticker"
+                                defaultMessage="Sticker"
+                            />
+                        </div>
+                        <div className="col-4">
+                            <FormattedMessage
+                                id="input.name"
+                                defaultMessage="Name"
+                            />
+                        </div>
+                        <div className="col-4">
+                            <FormattedMessage
+                                id="input.coefficient"
+                                defaultMessage="Coefficient"
+                            />
+                        </div>
                     </div>
                     <div>
                     {stickers.map(sticker => <StickerRow key={sticker.id} sticker={sticker}
@@ -57,13 +76,19 @@ const StickerList = () => {
                     <button
                         onClick={() => changePage(page - 1)}
                         className={`btn btn-secondary w-25 ${page > 1 ? "" : "invisible"}`}>
-                        Previous page
+                        <FormattedMessage
+                            id="page.prev"
+                            defaultMessage="Previous page"
+                        />
                     </button>
 
                     <button
                         onClick={() => changePage(page + 1)}
-                        className={`btn btn-secondary w-25 ${page < 3 ? "" : "invisible"}`}>
-                        Next page
+                        className={`btn btn-secondary w-25 ${page < maxPages ? "" : "invisible"}`}>
+                        <FormattedMessage
+                            id="page.next"
+                            defaultMessage="Next page"
+                        />
                     </button>
                 </div>
             </>
