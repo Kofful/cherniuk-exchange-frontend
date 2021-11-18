@@ -1,5 +1,6 @@
 import TableDataEditable from "./TableDataEditable";
 import PropTypes from "prop-types";
+import {getImage} from "../../../services/imageService";
 
 const StickerRow = ({sticker, updateSticker}) => {
     const updateField = (field, newData) => {
@@ -23,12 +24,10 @@ const StickerRow = ({sticker, updateSticker}) => {
         }
     };
 
-    const serverHost = process.env.REACT_APP_SERVER_HOST;
-
     return (
         <div className="d-flex border border-top-0 border-dark">
             <div className="col-1">{sticker.id}</div>
-            <div className="col-3"><img src={`${serverHost}${sticker.pathSmall}`} alt="Sticker"/></div>
+            <div className="col-3"><img src={getImage(sticker.pathSmall)} alt="Sticker"/></div>
             <TableDataEditable
                 data={sticker.name}
                 field="name"
