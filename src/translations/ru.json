@@ -14,5 +14,7 @@
   "sticker.coefficient.integer": "Коеффициент должен быть целым числом!",
   "sticker.coefficient.min": "Коеффициент должен быть равен 0 или более!",
   "sticker.coefficient.max": "Коеффициент должен быть равен 100,000 или менее!",
-  "sticker.image.required": "Изображение стикера является обязательным!"
+  "sticker.image.required": "Изображение стикера является обязательным!",
+  "page.prev": "Назад",
+  "page.next": "Далее"
 }

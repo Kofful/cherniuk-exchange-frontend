@@ -14,5 +14,7 @@
   "sticker.coefficient.integer": "Sticker coefficient must be an integer!",
   "sticker.coefficient.min": "Sticker coefficient must be 0 or greater!",
   "sticker.coefficient.max": "Sticker coefficient must be 100,000 or less!",
-  "sticker.image.required": "Sticker image is required!"
+  "sticker.image.required": "Sticker image is required!",
+  "page.prev": "Previous page",
+  "page.next": "Next page"
 }
