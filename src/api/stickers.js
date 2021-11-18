@@ -1,5 +1,7 @@
 import {get, post} from "../services/exchangeHttpService";
 
+const getLang = () => window.localStorage.getItem("locale") ?? "en";
+
 const getFormData = sticker => {
     const formData = new FormData();
 
@@ -16,22 +18,20 @@ export const getStickers = (page, token) => {
     });
 };
 
-//TODO change locale in localization feature
 export const addSticker = (sticker, token) => {
     return post(
-        `/en/api/sticker`,
+        `/${getLang()}/api/sticker`,
         getFormData(sticker),
         {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "multipart/form-data"
         });
-}
+};
 
-//TODO change locale in localization feature
 export const updateSticker = (sticker, token) => {
     return post(
-        `/en/api/sticker-update`,
-        getFormData,
+        `/${getLang()}/api/sticker-update`,
+        getFormData(sticker),
         {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "multipart/form-data"
