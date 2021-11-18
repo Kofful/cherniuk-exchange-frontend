@@ -4,12 +4,18 @@ import {Link, useLocation} from "react-router-dom";
 import {confirmEmail} from "../../api/auth";
 import queryString from "query-string";
 import {isEmptyArray} from "formik";
+import {FormattedMessage, useIntl} from "react-intl";
 
 const Confirm = () => {
+    const intl = useIntl();
+
     const [state, setState] = useState({
         isLoaded: false,
         isConfirmed: false,
-        message: "Loading..."
+        message: intl.formatMessage({
+            id: "loading",
+            defaultMessage: "Loading..."
+        })
     });
 
     const location = useLocation();
@@ -18,7 +24,10 @@ const Confirm = () => {
         setState({
             ...state,
             isLoaded: true,
-            message: "Failed to confirm your email."
+            message: intl.formatMessage({
+                id: "confirm.email.fail",
+                defaultMessage: "Failed to confirm your email."
+            })
         });
     };
 
@@ -46,8 +55,18 @@ const Confirm = () => {
     if (state.isConfirmed) {
         return (
             <div className="d-flex flex-column justify-content-center">
-                <h3>Email is confirmed!</h3>
-                <Link className="w-50 btn btn-success" to={route("home")}>Return to home page</Link>
+                <h3>
+                    <FormattedMessage
+                        id="confirm.email.confirmed"
+                        defaultMessage="Email is confirmed!"
+                    />
+                </h3>
+                <Link className="w-50 btn btn-success" to={route("home")}>
+                    <FormattedMessage
+                        id="return.home"
+                        defaultMessage="Return to home page"
+                    />
+                </Link>
             </div>
         );
     }

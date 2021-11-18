@@ -16,5 +16,9 @@
   "sticker.coefficient.max": "Sticker coefficient must be 100,000 or less!",
   "sticker.image.required": "Sticker image is required!",
   "page.prev": "Previous page",
-  "page.next": "Next page"
+  "page.next": "Next page",
+  "confirm.email.fail": "Failed to confirm your email.",
+  "confirm.email.confirmed": "Email is confirmed!",
+  "loading": "Loading...",
+  "return.home": "Return to home page"
 }
