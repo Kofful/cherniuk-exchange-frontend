@@ -37,5 +37,11 @@
   "input.coefficient": "Coefficient",
   "input.email": "Email",
   "input.username": "Username",
-  "input.password": "Password"
+  "input.password": "Password",
+  "user.profile": "Profile",
+  "link.admin": "Administration",
+  "get.sticker": "Get sticker",
+  "offer.create": "Create offer",
+  "confirmation.sent": "We sent confirmation link to your email. Please, check your inbox.",
+  "error.appeared": "Some error appeared. Please, retry later."
 }

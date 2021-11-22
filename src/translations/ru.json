@@ -37,5 +37,11 @@
   "input.coefficient": "Коеффициент",
   "input.email": "Эл. почта",
   "input.username": "Имя пользователя",
-  "input.password": "Пароль"
+  "input.password": "Пароль",
+  "user.profile": "Профиль",
+  "link.admin": "Администрирование",
+  "get.sticker": "Получить стикер",
+  "offer.create": "Создать обмен",
+  "confirmation.sent": "Мы отправили Вам письмо. Пожалуйста, проверьте Вашу электронную почту.",
+  "error.appeared": "Произошла неизвестная ошибка. Пожалуйста, попробуйте позже."
 }

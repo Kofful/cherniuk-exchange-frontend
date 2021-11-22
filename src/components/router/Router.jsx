@@ -1,5 +1,5 @@
 import {BrowserRouter} from "react-router-dom";
-import HeaderNav from "../HeaderNav";
+import HeaderNav from "../header/HeaderNav";
 import Routes from "../../routes";
 import {useStore} from "../../stores";
 import {useEffect} from "react";
