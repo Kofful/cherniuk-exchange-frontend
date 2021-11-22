@@ -20,7 +20,7 @@ export const getStickers = (page, token) => {
 
 export const addSticker = (sticker, token) => {
     return post(
-        `/${getLang()}/api/sticker`,
+        `/${getLang()}/api/sticker/add`,
         getFormData(sticker),
         {
             "Authorization": `Bearer ${token}`,
@@ -30,10 +30,19 @@ export const addSticker = (sticker, token) => {
 
 export const updateSticker = (sticker, token) => {
     return post(
-        `/${getLang()}/api/sticker-update`,
+        `/${getLang()}/api/sticker/update`,
         getFormData(sticker),
         {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "multipart/form-data"
         });
+};
+
+export const giveSticker = token => {
+    return get(
+        `/${getLang()}/api/sticker/give`,
+        {
+            "Authorization": `Bearer ${token}`
+        }
+    );
 };

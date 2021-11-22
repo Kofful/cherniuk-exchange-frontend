@@ -28,7 +28,11 @@ const Register = () => {
     const submit = async (values) => {
         try {
             await register(values);
-            addToast("We sent confirmation link to your email. Please, check your inbox.", {
+            addToast(
+                intl.formatMessage({
+                    id: "confirmation.sent",
+                    defaultMessage: "We sent confirmation link to your email. Please, check your inbox."
+                }), {
                 appearance: "info",
                 placement: "bottom-right",
                 autoDismiss: false
