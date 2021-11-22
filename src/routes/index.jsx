@@ -5,6 +5,7 @@ import Register from "../components/register/Register";
 import Confirm from "../components/confirm/Confirm";
 import Admin from "../components/admin/Admin";
 import Page404 from "../components/errorPages/Page404";
+import Profile from "../components/profile/Profile";
 
 const Routes = () => {
     return (
@@ -14,6 +15,7 @@ const Routes = () => {
             <Route path="/register" element={<Register/>}/>
             <Route path="/confirm" element={<Confirm/>}/>
             <Route path="/admin" element={<Admin/>}/>
+            <Route path="/user/:id" element={<Profile/>}/>
             <Route path="*" element={<Page404/>}/>
         </ReactRoutes>
     )
@@ -30,6 +32,9 @@ export const route = (routeName) => {
             break;
         case "admin":
             path = "/admin";
+            break;
+        case "profile":
+            path = "/user/%id%";
             break;
         case "home":
         default:
