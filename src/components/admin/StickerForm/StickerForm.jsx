@@ -4,6 +4,7 @@ import Input from "../../form/Input";
 import {useState} from "react";
 import {FormattedMessage, useIntl} from "react-intl";
 import {addSticker} from "../../../api/stickers";
+import {useCookies} from "react-cookie";
 
 const StickerForm = () => {
     const defaultData = {
@@ -15,11 +16,13 @@ const StickerForm = () => {
 
     const intl = useIntl();
 
+    const [cookies] = useCookies();
+
     const [messages, setMessages] = useState([]);
 
     const submit = async (values, {resetForm, setSubmitting}) => {
         try {
-            await addSticker(values);
+            await addSticker(values, cookies.token);
             resetForm();
             setSubmitting(false);
         } catch (error) {
