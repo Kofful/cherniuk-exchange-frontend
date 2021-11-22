@@ -44,6 +44,10 @@ const StickerGiver = () => {
 
     setInterval(updateTimer, 1000);
 
+    const minutesLeft = Math.floor(interval / 60);
+    const secondsLeft = ("0" + Math.round(interval % 60)).slice(-2);
+    const timeLeft = minutesLeft + ":" + secondsLeft;
+
     return (
         <div className={"btn w-100 text-left text-reset " + (interval > 0 ? "disabled" : "")}  onClick={getSticker}>
             <FormattedMessage
@@ -51,7 +55,7 @@ const StickerGiver = () => {
                 defaultMessage="Get sticker"
             />
             <span className="ps-3 fs-6 text-danger">
-                {interval > 0 && (Math.floor(interval / 60) + ":" + ("0" + Math.round(interval % 60)).slice(-2))}
+                {interval > 0 && timeLeft}
             </span>
         </div>
     );
