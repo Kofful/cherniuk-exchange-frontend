@@ -42,9 +42,7 @@ UserDropDown.propTypes = {
         id: PropTypes.number,
         username: PropTypes.string,
         wallet: PropTypes.number,
-        rewardedAt: PropTypes.shape({
-            timestamp: PropTypes.number
-        })
+        rewardedAt: PropTypes.number
     }),
 };
 
@@ -53,7 +51,7 @@ UserDropDown.defaultProps = {
         id: 0,
         username: "",
         wallet: "",
-        rewardedAt: new Date()
+        rewardedAt: Date.now()
     }
 }
 
