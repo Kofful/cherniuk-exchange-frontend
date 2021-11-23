@@ -20,7 +20,7 @@ const HeaderDropDown = () => {
         navigate(route("home"));
     };
 
-    const isAdmin = user && user.roles.includes("ROLE_ADMIN");
+    const isAdmin = user && user.role.name === "ROLE_ADMIN";
 
     return (
         <>
