@@ -15,7 +15,7 @@ const UserDropDown = ({user}) => {
     return (
         <>
             <li className="dropdown-item p-0">
-                <Link to={linkToProfile} className="btn w-100 text-left text-reset text-decoration-none">
+                <Link to={{pathname: linkToProfile, state: "flushDeal"}} className="btn w-100 text-left text-reset text-decoration-none">
                     <FormattedMessage
                         id="user.profile"
                         defaultMessage="Profile"
