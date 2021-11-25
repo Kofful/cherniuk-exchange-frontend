@@ -22,10 +22,10 @@ const Profile = () => {
         };
 
         loadUser();
-    }, []);
+    }, [id]);
 
     return (
-        <>
+        <div className="d-flex justify-content-center">
             {isLoading && <Spinner/>}
 
             {!isLoading && !user && <Page404/>}
@@ -35,7 +35,7 @@ const Profile = () => {
                 {user.username}
             </h2>
             }
-        </>
+        </div>
     );
 };
 

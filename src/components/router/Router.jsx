@@ -4,7 +4,7 @@ import Routes from "../../routes";
 import {useStore} from "../../stores";
 import {useEffect} from "react";
 import {getUser} from "../../api/user";
-import {useCookies} from "react-cookie";
+import {useCookies, withCookies} from "react-cookie";
 
 const Router = () => {
     const {userStore} = useStore();
@@ -36,4 +36,4 @@ const Router = () => {
     );
 };
 
-export default Router;
+export default withCookies(Router);

@@ -24,6 +24,7 @@ const StickerGiver = () => {
             const newUser = Object.assign({}, user);
             newUser.rewardedAt = Math.round(Date.now() / 1000);
             setUser(newUser);
+            updateInterval(600);
         } catch (e) {
             addToast(intl.formatMessage({
                 id: "error.appeared",
@@ -41,7 +42,9 @@ const StickerGiver = () => {
         updateInterval(600 - newDifference);
     };
 
-    setInterval(updateTimer, 1000);
+    if(interval > 0) {
+        setTimeout(updateTimer, 1000);
+    }
 
     const minutesLeft = Math.floor(interval / 60);
     const secondsLeft = ("0" + Math.round(interval % 60)).slice(-2);
