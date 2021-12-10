@@ -24,7 +24,7 @@ const Login = () => {
     const submit = async (values) => {
         try {
             const response = await login(values);
-            setCookie("token", response.token);
+            setCookie("token", response.token, {path: "/"});
             navigate(route("home"));
         } catch (error) {
             if (error.status === 401) {

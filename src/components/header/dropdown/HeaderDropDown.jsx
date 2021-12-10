@@ -16,7 +16,7 @@ const HeaderDropDown = () => {
     const [cookies, setCookie, removeCookie] = useCookies();
 
     const logout = () => {
-        removeCookie("token");
+        removeCookie("token", {path: "/"});
         navigate(route("home"));
     };
 

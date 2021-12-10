@@ -36,4 +36,4 @@ const Router = () => {
     );
 };
 
-export default withCookies(Router);
+export default Router;
