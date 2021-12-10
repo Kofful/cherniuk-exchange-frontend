@@ -44,5 +44,6 @@
   "offer.create": "Create offer",
   "confirmation.sent": "We sent confirmation link to your email. Please, check your inbox.",
   "error.appeared": "Some error appeared. Please, retry later.",
-  "inventory": "Inventory"
+  "inventory": "Inventory",
+  "sell": "Sell immediately"
 }
