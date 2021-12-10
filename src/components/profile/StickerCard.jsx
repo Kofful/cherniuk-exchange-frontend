@@ -4,7 +4,7 @@ import "./styles.css";
 
 const StickerCard = ({itemId, sticker}) => {
     return (
-        <div className="m-2">
+        <div className="m-2 user-select-none" title={sticker.name}>
             <img className="sticker-card" src={getImage(sticker.path)} alt={"Sticker"}/>
         </div>
     );
