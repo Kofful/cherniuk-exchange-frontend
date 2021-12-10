@@ -9,5 +9,9 @@ export const getUser = token => {
 };
 
 export const getUserInfo = (id) => {
-    return get(`/${getLang()}/api/user/${id}`)
+    return get(`/${getLang()}/api/user/${id}`);
 };
+
+export const getUserItems = (id) => {
+    return get(`/${getLang()}/api/user/${id}/items`);
+}

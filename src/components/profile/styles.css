@@ -1,0 +1,9 @@
+.sticker-card {
+    transition: all 300ms;
+    width: 150px;
+    height: 150px;
+}
+
+.sticker-card:hover {
+    transform: scale(1.3);
+}
