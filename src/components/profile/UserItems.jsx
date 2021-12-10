@@ -4,15 +4,18 @@ import {getUserItems} from "../../api/user";
 import Spinner from "../spinner/Spinner";
 import StickerCard from "./StickerCard";
 import {FormattedMessage} from "react-intl";
+import {useCookies, withCookies} from "react-cookie";
 
 const UserItems = ({userId}) => {
+    const [cookies] = useCookies();
+
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const loadItems = async () => {
             try {
-                const result = await getUserItems(userId);
+                const result = await getUserItems(userId, cookies.token);
                 setItems(result);
             } catch (e) {
                 setItems([]);
@@ -58,4 +61,4 @@ UserItems.defaultProps = {
     userId: 0
 };
 
-export default UserItems;
+export default withCookies(UserItems);

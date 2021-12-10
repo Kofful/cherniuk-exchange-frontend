@@ -12,6 +12,8 @@ export const getUserInfo = (id) => {
     return get(`/${getLang()}/api/user/${id}`);
 };
 
-export const getUserItems = (id) => {
-    return get(`/${getLang()}/api/user/${id}/items`);
+export const getUserItems = (id, token) => {
+    return get(`/${getLang()}/api/user/${id}/items`, {
+        "Authorization": `Bearer ${token}`
+    });
 }
