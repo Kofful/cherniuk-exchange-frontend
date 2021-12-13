@@ -12,17 +12,17 @@ const UserItems = ({userId}) => {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const loadItems = async () => {
-            try {
-                const result = await getUserItems(userId, cookies.token);
-                setItems(result);
-            } catch (e) {
-                setItems([]);
-            }
-            setIsLoading(false);
-        };
+    const loadItems = async () => {
+        try {
+            const result = await getUserItems(userId, cookies.token);
+            setItems(result);
+        } catch (e) {
+            setItems([]);
+        }
+        setIsLoading(false);
+    };
 
+    useEffect(() => {
         loadItems();
     }, [userId]);
 
@@ -42,7 +42,7 @@ const UserItems = ({userId}) => {
                         {
                             items.map((item) => {
                                 return (
-                                    <StickerCard sticker={item.sticker} itemId={item.id} key={item.id}/>
+                                    <StickerCard sticker={item.sticker} itemId={item.id} loadItems={loadItems} key={item.id}/>
                                 );
                             })
                         }
