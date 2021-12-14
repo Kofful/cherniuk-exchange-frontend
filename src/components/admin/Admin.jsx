@@ -9,7 +9,7 @@ const Admin = () => {
     const {userStore} = useStore();
     const {user, isLoading} = userStore;
 
-    if (!isLoading && (!user || !user.roles.includes("ROLE_ADMIN"))) {
+    if (!isLoading && (!user || !(user.role.name === "ROLE_ADMIN"))) {
         return (
             <Page403/>
         );

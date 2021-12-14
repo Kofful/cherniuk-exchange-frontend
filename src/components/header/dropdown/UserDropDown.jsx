@@ -2,18 +2,15 @@ import {FormattedMessage} from "react-intl";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 import StickerGiver from "./StickerGiver";
+import {route} from "../../../routes";
 
 const UserDropDown = ({user}) => {
-    /*TODO change links in future features when routes are created
-    links to change:
-        /user/{id}
-        /offer/create
-     */
+    const linkToProfile = route("profile").replace("%id%", user.id);
 
     return (
         <>
             <li className="dropdown-item p-0">
-                <Link to={"/user/" + user.id} className="btn w-100 text-left text-reset text-decoration-none">
+                <Link to={linkToProfile} className="btn w-100 text-left text-reset text-decoration-none">
                     <FormattedMessage
                         id="user.profile"
                         defaultMessage="Profile"
@@ -24,7 +21,7 @@ const UserDropDown = ({user}) => {
                 <StickerGiver user={user}/>
             </li>
             <li className="dropdown-item p-0">
-                <Link to={"/offer/create"} className="btn w-100 text-left text-reset text-decoration-none">
+                <Link to={route("createOffer")} className="btn w-100 text-left text-reset text-decoration-none">
                     <FormattedMessage
                         id="offer.create"
                         defaultMessage="Create offer"
@@ -40,9 +37,7 @@ UserDropDown.propTypes = {
         id: PropTypes.number,
         username: PropTypes.string,
         wallet: PropTypes.number,
-        rewardedAt: PropTypes.shape({
-            timestamp: PropTypes.number
-        })
+        rewardedAt: PropTypes.number
     }),
 };
 
@@ -51,7 +46,7 @@ UserDropDown.defaultProps = {
         id: 0,
         username: "",
         wallet: "",
-        rewardedAt: new Date()
+        rewardedAt: Date.now()
     }
 }
 

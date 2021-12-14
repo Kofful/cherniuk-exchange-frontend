@@ -8,8 +8,7 @@ import {useStore} from "../../../stores";
 const StickerGiver = () => {
     const {userStore} = useStore();
     const {user, setUser} = userStore;
-
-    const difference = Math.floor(Date.now() / 1000 - user.rewardedAt.timestamp);
+    const difference = Math.floor(Date.now() / 1000 - user.rewardedAt);
 
     const [interval, updateInterval] = useState(600 - difference);
 
@@ -23,8 +22,9 @@ const StickerGiver = () => {
         try {
             await giveSticker(cookies.token);
             const newUser = Object.assign({}, user);
-            newUser.rewardedAt.timestamp = Math.round(Date.now() / 1000);
+            newUser.rewardedAt = Math.round(Date.now() / 1000);
             setUser(newUser);
+            updateInterval(600);
         } catch (e) {
             addToast(intl.formatMessage({
                 id: "error.appeared",
@@ -38,11 +38,13 @@ const StickerGiver = () => {
     };
 
     const updateTimer = () => {
-        const newDifference = Math.floor(Date.now() / 1000 - user.rewardedAt.timestamp);
+        const newDifference = Math.floor(Date.now() / 1000 - user.rewardedAt);
         updateInterval(600 - newDifference);
     };
 
-    setInterval(updateTimer, 1000);
+    if(interval > 0) {
+        setTimeout(updateTimer, 1000);
+    }
 
     const minutesLeft = Math.floor(interval / 60);
     const secondsLeft = ("0" + Math.round(interval % 60)).slice(-2);

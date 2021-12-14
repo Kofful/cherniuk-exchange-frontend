@@ -1,0 +1,30 @@
+.sticker-card {
+    transition: all 300ms;
+    width: 150px;
+    height: 150px;
+}
+
+.sticker-card:hover {
+    transform: scale(1.3);
+}
+
+.inventory-item {
+    flex: 1 1 20%;
+    max-width: 20%;
+}
+
+.context-menu {
+    margin-top: 30px !important;
+    margin-left: -70px !important;
+}
+
+.coin-icon {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+}
+
+.coin-count {
+    align-self: center;
+    margin: 0!important;
+}

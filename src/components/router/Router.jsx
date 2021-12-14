@@ -16,6 +16,7 @@ const Router = () => {
             userStore.setIsLoading(true);
             try {
                 const json = await getUser(cookies.token);
+                json.user.rewardedAt = Math.round(new Date(json.user.rewarded_at).getTime() / 1000);
                 userStore.setUser(json.user);
             } catch (e) {
                 userStore.setUser(null);
