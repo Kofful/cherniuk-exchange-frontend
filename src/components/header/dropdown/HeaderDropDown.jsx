@@ -9,7 +9,7 @@ import UserDropDown from "./UserDropDown";
 
 const HeaderDropDown = () => {
     const {userStore} = useStore();
-    const {user} = userStore;
+    const {user, isLoading} = userStore;
 
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const HeaderDropDown = () => {
 
     return (
         <>
-            {user &&
+            {!isLoading && user &&
             <div className="dropdown">
                 <div className="btn btn-dark border-0 text-white" data-bs-toggle="dropdown" aria-expanded="false">
                     {user.username}
@@ -49,7 +49,7 @@ const HeaderDropDown = () => {
             </div>
             }
 
-            {!user &&
+            {!isLoading && !user &&
             <Link to={route("login")} className="btn btn-success">
                 <FormattedMessage
                     id="login"

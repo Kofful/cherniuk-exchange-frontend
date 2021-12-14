@@ -5,11 +5,6 @@ import StickerGiver from "./StickerGiver";
 import {route} from "../../../routes";
 
 const UserDropDown = ({user}) => {
-    /*TODO change links in future features when routes are created
-    links to change:
-        /offer/create
-     */
-
     const linkToProfile = route("profile").replace("%id%", user.id);
 
     return (
@@ -26,7 +21,7 @@ const UserDropDown = ({user}) => {
                 <StickerGiver user={user}/>
             </li>
             <li className="dropdown-item p-0">
-                <Link to={"/offer/create"} className="btn w-100 text-left text-reset text-decoration-none">
+                <Link to={route("createOffer")} className="btn w-100 text-left text-reset text-decoration-none">
                     <FormattedMessage
                         id="offer.create"
                         defaultMessage="Create offer"
