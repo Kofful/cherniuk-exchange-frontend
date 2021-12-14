@@ -6,6 +6,7 @@ import Confirm from "../components/confirm/Confirm";
 import Admin from "../components/admin/Admin";
 import Page404 from "../components/errorPages/Page404";
 import Profile from "../components/profile/Profile";
+import CreateOfferForm from "../components/offer/CreateOfferForm";
 
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
             <Route path="/confirm" element={<Confirm/>}/>
             <Route path="/admin" element={<Admin/>}/>
             <Route path="/user/:id" element={<Profile/>}/>
+            <Route path="/offer/create" element={<CreateOfferForm/>}/>
             <Route path="*" element={<Page404/>}/>
         </ReactRoutes>
     )
@@ -35,6 +37,9 @@ export const route = (routeName) => {
             break;
         case "profile":
             path = "/user/%id%";
+            break;
+        case "createOffer":
+            path = "/offer/create"
             break;
         case "home":
         default:

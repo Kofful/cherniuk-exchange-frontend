@@ -7,6 +7,7 @@ import {useCookies} from "react-cookie";
 import StickerRow from "./StickerRow";
 import {updateSticker as updateStickerInDb} from "../../../api/stickers";
 import {FormattedMessage} from "react-intl";
+import PageButtons from "../../pagination/PageButtons";
 
 const StickerList = () => {
     const {stickerStore} = useStore();
@@ -72,25 +73,7 @@ const StickerList = () => {
                                                          updateSticker={updateSticker}/>)}
                     </div>
                 </div>
-                <div className="d-flex justify-content-around">
-                    <button
-                        onClick={() => changePage(page - 1)}
-                        className={`btn btn-secondary w-25 ${page > 1 ? "" : "invisible"}`}>
-                        <FormattedMessage
-                            id="page.prev"
-                            defaultMessage="Previous page"
-                        />
-                    </button>
-
-                    <button
-                        onClick={() => changePage(page + 1)}
-                        className={`btn btn-secondary w-25 ${page < maxPages ? "" : "invisible"}`}>
-                        <FormattedMessage
-                            id="page.next"
-                            defaultMessage="Next page"
-                        />
-                    </button>
-                </div>
+                <PageButtons changePage={changePage} page={page} maxPages={maxPages}/>
             </>
 
             }
