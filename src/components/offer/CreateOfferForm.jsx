@@ -2,7 +2,7 @@ import SelectingItemsForm from "./SelectingItemsForm";
 import ItemsToGiveTemplate from "../../templates/offer/ItemsToGiveTemplate";
 import ItemsToAcceptTemplate from "../../templates/offer/ItemsToAcceptTemplate";
 import PropTypes from "prop-types";
-import {getUserItems} from "../../api/user";
+import {getUserItems as getItems} from "../../api/user";
 import {useCookies} from "react-cookie";
 import {useEffect, useState} from "react";
 import {useStore} from "../../stores";
@@ -31,24 +31,28 @@ const CreateOfferForm = ({addresseeId}) => {
         selected: []
     });
 
+    const [message, updateMessage] = useState("");
+
     const [cookie] = useCookies();
 
-    const getOwnItems = async () => {
-        const items = await getUserItems(user.id, ownPage, cookie.token);
-        const newSelecting = giveItems.selecting.concat(
-            items.stickers.map(item => {
-                    const newItem = {...item.sticker, id: item.id};
-                    return newItem;
-                }
-            )
-        );
-
+    const getUserItems = async (userId, page) => {
+        let items = await getItems(userId, page, cookie.token);
         const maxPages = Math.floor((items.count - 1) / process.env.REACT_APP_USER_ITEMS_PER_PAGE) + 1;
-        changeMaxOwnPages(maxPages)
+        items = items.stickers.map(item => {
+                return {...item.sticker, reactKey: item.id};
+            }
+        )
+        return [items, maxPages];
+    };
 
+    const getOwnItems = async () => {
+        const [items, maxPages] = await getUserItems(user.id, ownPage);
+        const selecting = giveItems.selecting.concat(items);
+
+        changeMaxOwnPages(maxPages);
         updateGiveItems({
             ...giveItems,
-            selecting: newSelecting
+            selecting
         });
     };
 
@@ -57,17 +61,14 @@ const CreateOfferForm = ({addresseeId}) => {
         let maxPages;
         if (addresseeId === 0) {
             const response = await getStickers(acceptPage, cookie.token);
-            items = response.stickers;
+            items = response.stickers.map(sticker => ({...sticker, reactKey: sticker.id}));
             maxPages = Math.floor((response.count - 1) / process.env.REACT_APP_STICKERS_PER_PAGE) + 1;
         } else {
-            const response = await getUserItems(addresseeId, acceptPage, cookie.token);
-            items = response.stickers.map(item => {
-                return item.sticker;
-            });
-            maxPages = Math.floor((response.count - 1) / process.env.REACT_APP_USER_ITEMS_PER_PAGE) + 1;
+            [items, maxPages] = await getUserItems(addresseeId, acceptPage)
         }
-        changeMaxAcceptPages(maxPages)
         const newItems = acceptItems.selecting.concat(items);
+
+        changeMaxAcceptPages(maxPages)
 
         updateAcceptItems({
             ...acceptItems,

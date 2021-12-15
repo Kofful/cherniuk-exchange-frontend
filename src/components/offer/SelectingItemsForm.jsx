@@ -5,16 +5,16 @@ import SelectingItemsContainer from "./SelectingItemsContainer";
 const SelectingItemsForm = ({template, items, updateItems, loadMore}) => {
     const {header} = template;
 
-    const moveItem = (source, destination, itemId) => {
-        const movedItem = source.find(item => item.id === itemId);
-        const newSource = source.filter(item => item.id !== itemId);
+    const moveItem = (source, destination, itemKey) => {
+        const movedItem = source.find(item => item.reactKey === itemKey);
+        const newSource = source.filter(item => item.reactKey !== itemKey);
         const newDestination = destination.concat(movedItem);
         return [newSource, newDestination];
     };
 
-    const selectItem = (itemId) => {
+    const selectItem = (itemKey) => {
         const {selecting, selected} = {...items};
-        const [newSelecting, newSelected] = moveItem(selecting, selected, itemId)
+        const [newSelecting, newSelected] = moveItem(selecting, selected, itemKey)
         updateItems({
             ...items,
             selecting: newSelecting,

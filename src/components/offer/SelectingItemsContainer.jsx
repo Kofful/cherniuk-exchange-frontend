@@ -29,7 +29,7 @@ const SelectingItemsContainer = ({stickers, update, loadMore}) => {
               {
                   stickers.map((item) => {
                       return (
-                          <OfferItem sticker={item} update={update} key={item.id}/>
+                          <OfferItem sticker={item} update={update} key={item.reactKey}/>
                       );
                   })
               }

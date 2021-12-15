@@ -5,7 +5,7 @@ import "./styles.css";
 
 const OfferItem = ({sticker, update}) => {
     return (
-        <div className="m-0 user-select-none" title={sticker.name} onClick={() => update(sticker.id)}>
+        <div className="m-0 user-select-none" title={sticker.name} onClick={() => update(sticker.reactKey)}>
             <img className="offer-item" src={getImage(sticker.path)} alt={"Sticker"}/>
         </div>
     );
