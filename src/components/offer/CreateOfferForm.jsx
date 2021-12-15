@@ -114,12 +114,14 @@ const CreateOfferForm = ({addresseeId}) => {
                     items={giveItems}
                     updateItems={updateGiveItems}
                     loadMore={loadMoreOwnItems}
+                    isLimited={true}
                 />
                 <SelectingItemsForm
                     template={ItemsToAcceptTemplate}
                     items={acceptItems}
                     updateItems={updateAcceptItems}
                     loadMore={loadMoreAcceptItems}
+                    isLimited={false}
                 />
             </div>
             <button className="btn btn-secondary w-50 fs-5 mt-4 align-self-center" onClick={create}>

@@ -2,11 +2,11 @@ import {FormattedMessage} from "react-intl";
 import PropTypes from "prop-types";
 import SelectingItemsContainer from "./SelectingItemsContainer";
 
-const SelectingItemsForm = ({template, items, updateItems, loadMore}) => {
+const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited}) => {
     const {header} = template;
 
     const moveItem = (source, destination, itemKey) => {
-        const movedItem = source.find(item => item.reactKey === itemKey);
+        const movedItem = {...source.find(item => item.reactKey === itemKey), reactKey: Date.now()};
         const newSource = source.filter(item => item.reactKey !== itemKey);
         const newDestination = destination.concat(movedItem);
         return [newSource, newDestination];
@@ -14,10 +14,14 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore}) => {
 
     const selectItem = (itemKey) => {
         const {selecting, selected} = {...items};
-        const [newSelecting, newSelected] = moveItem(selecting, selected, itemKey)
+        const [newSelecting, newSelected] = moveItem(selecting, selected, itemKey);
+        //limitedSelecting decides either to remove items from selecting or leave them in array:
+        //if items are limited (chosen from user inventory) - update selecting;
+        //if items are unlimited (chosen from sticker list) - leave selecting as it was;
+        const limitedSelecting = isLimited ? newSelecting : selecting;
         updateItems({
             ...items,
-            selecting: newSelecting,
+            selecting: limitedSelecting,
             selected: newSelected
         });
     };
@@ -25,9 +29,10 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore}) => {
     const unselectItem = (itemId) => {
         const {selecting, selected} = {...items};
         const [newSelected, newSelecting] = moveItem(selected, selecting, itemId);
+        const limitedSelecting = isLimited ? newSelecting : selecting;
         updateItems({
             ...items,
-            selecting: newSelecting,
+            selecting: limitedSelecting,
             selected: newSelected
         });
     };
@@ -80,7 +85,8 @@ SelectingItemsForm.propTypes = {
         selected: PropTypes.array
     }),
     updateItems: PropTypes.func,
-    loadMore: PropTypes.func
+    loadMore: PropTypes.func,
+    isLimited: PropTypes.bool
 };
 
 SelectingItemsForm.defaultProps = {
@@ -96,7 +102,8 @@ SelectingItemsForm.defaultProps = {
         selected: []
     },
     updateItems: () => {},
-    loadMore: () => {}
+    loadMore: () => {},
+    isLimited: true
 };
 
 export default SelectingItemsForm;
