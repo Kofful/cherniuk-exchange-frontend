@@ -2,7 +2,7 @@ import {FormattedMessage} from "react-intl";
 import PropTypes from "prop-types";
 import SelectingItemsContainer from "./SelectingItemsContainer";
 
-const SelectingItemsForm = ({template, items, updateItems}) => {
+const SelectingItemsForm = ({template, items, updateItems, loadMore}) => {
     const {header} = template;
 
     const moveItem = (source, destination, itemId) => {
@@ -60,7 +60,7 @@ const SelectingItemsForm = ({template, items, updateItems}) => {
                 <input className="form-control w-25" type="number" value={items.payment} onChange={e => updatePayment(e.target.value)}/>
             </div>
             <div className="d-flex">
-                <SelectingItemsContainer stickers={items.selecting} update={selectItem}/>
+                <SelectingItemsContainer stickers={items.selecting} update={selectItem} loadMore={loadMore}/>
                 <SelectingItemsContainer stickers={items.selected} update={unselectItem}/>
             </div>
         </div>
@@ -79,7 +79,8 @@ SelectingItemsForm.propTypes = {
         selecting: PropTypes.array,
         selected: PropTypes.array
     }),
-    updateItems: PropTypes.func
+    updateItems: PropTypes.func,
+    loadMore: PropTypes.func
 };
 
 SelectingItemsForm.defaultProps = {
@@ -94,7 +95,8 @@ SelectingItemsForm.defaultProps = {
         selecting: [],
         selected: []
     },
-    updateItems: () => {}
+    updateItems: () => {},
+    loadMore: () => {}
 };
 
 export default SelectingItemsForm;

@@ -19,6 +19,7 @@
     overflow-y: scroll;
     max-height: 300px;
     height: 100%;
+    align-content: flex-start;
 }
 
 .sticker-container::-webkit-scrollbar {
