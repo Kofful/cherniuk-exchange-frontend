@@ -8,11 +8,18 @@ import {useEffect, useState} from "react";
 import {useStore} from "../../stores";
 import {observer} from "mobx-react";
 import {getStickers} from "../../api/stickers";
-import {FormattedMessage} from "react-intl";
+import {FormattedMessage, useIntl} from "react-intl";
+import {createOffer} from "../../api/offer";
+import {useToasts} from "react-toast-notifications";
+import {useNavigate} from "react-router-dom";
+import {route} from "../../routes";
 
 const CreateOfferForm = ({addresseeId}) => {
     const {userStore} = useStore();
     const {user} = userStore;
+    const {addToast} = useToasts();
+    const intl = useIntl();
+    const navigate = useNavigate();
 
     const [ownPage, changeOwnPage] = useState(1);
     const [maxOwnPages, changeMaxOwnPages] = useState(1);
@@ -89,7 +96,57 @@ const CreateOfferForm = ({addresseeId}) => {
     };
 
     const create = async () => {
-        console.log(giveItems, acceptItems);
+        let messageId = "";
+        if (isNaN(parseInt(giveItems.payment)) || isNaN(parseInt(acceptItems.payment))) {
+            messageId = "offer.payment.not.set";
+        } else if (!giveItems.selected.length && !acceptItems.selected.length) {
+            messageId = "offer.items.not.selected";
+        } else if (giveItems.selected.length > process.env.REACT_APP_MAX_ITEMS_IN_OFFER
+            || acceptItems.selected.length > process.env.REACT_APP_MAX_ITEMS_IN_OFFER) {
+            messageId = "offer.items.too.much";
+        } else {
+            const give = giveItems.selected.map(item => item.id);
+            const accept = acceptItems.selected.map(item => item.id);
+
+            const offer = {
+                targetId: addresseeId,
+                creatorPayment: parseInt(giveItems.payment),
+                targetPayment: parseInt(acceptItems.payment),
+                give,
+                accept
+            };
+
+            try {
+                await createOffer(offer, cookie.token);
+                navigate(route("myOffers"));
+            } catch (error) {
+                if (error.status === 400 && error.status === 403) {
+                    addToast(
+                        error.data,
+                        {
+                            appearance: "info",
+                            placement: "bottom-right",
+                            autoDismiss: false
+                        }
+                    );
+                } else {
+                    addToast(
+                        intl.formatMessage({
+                            id: "something.went.wrong",
+                            defaultMessage: "Something went wrong"
+                        }),
+                        {
+                            appearance: "info",
+                            placement: "bottom-right",
+                            autoDismiss: false
+                        }
+                    );
+                }
+            }
+
+            messageId = "";
+        }
+        updateMessage(messageId);
     };
 
     const userId = user ? user.id : 0;
@@ -130,6 +187,13 @@ const CreateOfferForm = ({addresseeId}) => {
                     defaultMessage="Create offer"
                 />
             </button>
+            {message !== "" &&
+                <span className="text-danger align-self-center">
+                    <FormattedMessage
+                        id={message}
+                    />
+                </span>
+            }
         </div>
     );
 };

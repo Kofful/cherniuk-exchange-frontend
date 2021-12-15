@@ -48,5 +48,8 @@
   "sell": "Sell immediately",
   "stickers.to.give": "Stickers you give",
   "stickers.to.accept": "Stickers you accept",
-  "offer.payment": "Payment"
+  "offer.payment": "Payment",
+  "offer.payment.not.set": "Payment is not set!",
+  "offer.items.not.selected": "Items are not selected!",
+  "offer.items.too.much": "Too much items chosen! Maximum count from each user is 100."
 }
