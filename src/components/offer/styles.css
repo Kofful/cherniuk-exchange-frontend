@@ -1,0 +1,38 @@
+.offer-item {
+    transition: all 300ms;
+    flex: 1 1 auto;
+    width: 75px;
+    height: 75px;
+    border: #777777 1px;
+    cursor: pointer;
+}
+
+.offer-item:hover {
+    transform: scale(1.3);
+}
+
+.sticker-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    overflow-y: scroll;
+    max-height: 300px;
+    height: 100%;
+    align-content: flex-start;
+}
+
+.sticker-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sticker-container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #555555;
+}
+
+.sticker-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background-color: #333333;
+}

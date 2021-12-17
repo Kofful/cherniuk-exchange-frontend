@@ -8,7 +8,6 @@ import {useCookies, withCookies} from "react-cookie";
 import PageButtons from "../pagination/PageButtons";
 
 const UserItems = ({userId}) => {
-    const ITEMS_PER_PAGE = 25;
     const [cookies] = useCookies();
 
     const [page, changePage] = useState(1);
@@ -18,9 +17,9 @@ const UserItems = ({userId}) => {
 
     const loadItems = async () => {
         try {
-            const result = await getUserItems(userId, cookies.token);
+            const result = await getUserItems(userId, page, cookies.token);
             setItems(result.stickers);
-            changeMaxPages(Math.floor((result.count - 1) / ITEMS_PER_PAGE) + 1);
+            changeMaxPages(Math.floor((result.count - 1) / process.env.REACT_APP_USER_ITEMS_PER_PAGE) + 1);
         } catch (e) {
             setItems([]);
             changeMaxPages(1);
@@ -30,7 +29,7 @@ const UserItems = ({userId}) => {
 
     useEffect(() => {
         loadItems();
-    }, [userId]);
+    }, [userId, page]);
 
     return (
         <>
@@ -38,7 +37,7 @@ const UserItems = ({userId}) => {
 
             {!isLoading && items.length > 0 &&
                 <>
-                    <div>
+                    <div className="p-4">
                         <h2 className="ms-5">
                             <FormattedMessage
                                 id="inventory"

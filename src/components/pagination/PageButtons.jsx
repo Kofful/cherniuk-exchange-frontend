@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const PageButtons = ({changePage, page, maxPages}) => {
     return (
-        <div className="d-flex justify-content-around">
+        <div className="d-flex justify-content-around mb-5">
             <button
                 onClick={() => changePage(page - 1)}
                 className={`btn btn-secondary w-25 ${page > 1 ? "" : "invisible"}`}>

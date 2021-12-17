@@ -45,5 +45,12 @@
   "confirmation.sent": "We sent confirmation link to your email. Please, check your inbox.",
   "error.appeared": "Some error appeared. Please, retry later.",
   "inventory": "Inventory",
-  "sell": "Sell immediately"
+  "sell": "Sell immediately",
+  "stickers.to.give": "Stickers you give",
+  "stickers.to.accept": "Stickers you accept",
+  "offer.payment": "Payment",
+  "offer.payment.not.set": "Payment is not set!",
+  "offer.items.not.selected": "Items are not selected!",
+  "offer.items.too.much": "Too much items chosen! Maximum count from each user is 100.",
+  "offer.created": "Offer created successfully"
 }
