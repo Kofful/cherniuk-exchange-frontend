@@ -119,6 +119,17 @@ const CreateOfferForm = ({addresseeId}) => {
             try {
                 await createOffer(offer, cookie.token);
                 navigate(route("myOffers"));
+                addToast(
+                    intl.formatMessage({
+                        id: "offer.created",
+                        defaultMessage: "Offer created successfully"
+                    }),
+                    {
+                        appearance: "info",
+                        placement: "bottom-right",
+                        autoDismiss: false
+                    }
+                );
             } catch (error) {
                 if (error.status === 400 && error.status === 403) {
                     addToast(
