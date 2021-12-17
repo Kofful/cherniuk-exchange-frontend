@@ -189,7 +189,7 @@ const CreateOfferForm = ({addresseeId}) => {
                     items={acceptItems}
                     updateItems={updateAcceptItems}
                     loadMore={loadMoreAcceptItems}
-                    isLimited={false}
+                    isLimited={!!addresseeId}
                 />
             </div>
             <button className="btn btn-secondary w-50 fs-5 mt-4 align-self-center" onClick={create}>
