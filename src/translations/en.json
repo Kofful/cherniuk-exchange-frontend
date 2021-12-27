@@ -53,5 +53,7 @@
   "offer.items.not.selected": "Items are not selected!",
   "offer.items.too.much": "Too much items chosen! Maximum count from each user is 100.",
   "offer.created": "Offer created successfully",
+  "offer.accept": "Accept offer",
+  "offer.make.counteroffer": "Make a counteroffer",
   "hide": "Hide"
 }
