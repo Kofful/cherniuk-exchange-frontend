@@ -8,7 +8,7 @@ const CreateTargetedOfferForm = () => {
     const {id} = useParams();
     const {userStore} = useStore();
     const {user, isLoading} = userStore;
-    const addresseeId = typeof(id) === "number" ? id : 0;
+    const addresseeId = isNaN(id) ? 0 : parseInt(id);
 
     const isForbidden = !isLoading && (!user || user.id === addresseeId);
 
