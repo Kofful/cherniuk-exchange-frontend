@@ -38,6 +38,8 @@ const Home = () => {
                 <OfferContainer
                     giveItems={offer.giveItems}
                     acceptItems={offer.acceptItems}
+                    creatorPayment={offer.creatorPayment}
+                    targetPayment={offer.targetPayment}
                     creator={offer.creator}
                     isAcceptingPermitted={!!user && user.id !== offer.creator.id}
                     isRemovingPermitted={!!user && user.id === offer.creator.id}

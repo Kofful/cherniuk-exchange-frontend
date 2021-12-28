@@ -6,7 +6,7 @@ const OfferCreatorInfo = ({creator}) => {
     const profileLink = route("profile").replace("%id%", creator.id.toString());
 
     return (
-        <div className="w-100 border-bottom border-secondary h-auto py-1 px-3">
+        <div className="w-100 bg-dark border-bottom border-secondary h-auto py-1 px-3">
             <Link to={profileLink} className="fs-4">
                 {creator.username}
             </Link>
