@@ -6,7 +6,7 @@ import Confirm from "../components/confirm/Confirm";
 import Admin from "../components/admin/Admin";
 import Page404 from "../components/errorPages/Page404";
 import Profile from "../components/profile/Profile";
-import CreateTargetedOfferForm from "../components/offer/CreateTargetedOfferForm";
+import CreateTargetedOfferForm from "../components/offer/CreateOffer/CreateTargetedOfferForm";
 
 const Routes = () => {
     return (

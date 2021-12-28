@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {getOffers} from "../../api/offer";
 import Spinner from "../spinner/Spinner";
-import AcceptOfferForm from "../offer/AcceptOffer/AcceptOfferForm";
+import OfferContainer from "../offer/OfferContainer";
 import PageButtons from "../pagination/PageButtons";
 import {observer} from "mobx-react";
 import {useStore} from "../../stores";
@@ -35,11 +35,12 @@ const Home = () => {
             {isLoading && <Spinner/>}
 
             {!isLoading && offerList.map(offer => (
-                <AcceptOfferForm
+                <OfferContainer
                     giveItems={offer.giveItems}
                     acceptItems={offer.acceptItems}
                     creator={offer.creator}
-                    isAcceptPermitted={!!user && user.id !== offer.creator.id}
+                    isAcceptingPermitted={!!user && user.id !== offer.creator.id}
+                    isRemovingPermitted={!!user && user.id === offer.creator.id}
                     key={offer.id}
                 />
             ))}
