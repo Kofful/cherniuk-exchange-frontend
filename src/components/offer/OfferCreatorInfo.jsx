@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
-import {route} from "../../../routes";
+import {route} from "../../routes";
 import PropTypes from "prop-types";
 
-const AcceptOfferCreator = ({creator}) => {
+const OfferCreatorInfo = ({creator}) => {
     const profileLink = route("profile").replace("%id%", creator.id.toString());
 
     return (
@@ -14,18 +14,18 @@ const AcceptOfferCreator = ({creator}) => {
     );
 };
 
-AcceptOfferCreator.propTypes = {
+OfferCreatorInfo.propTypes = {
     creator: PropTypes.shape({
         id: PropTypes.number,
         username: PropTypes.string
     })
 };
 
-AcceptOfferCreator.defaultProps = {
+OfferCreatorInfo.defaultProps = {
     creator: {
         id: 0,
         username: ""
     }
 };
 
-export default AcceptOfferCreator;
+export default OfferCreatorInfo;

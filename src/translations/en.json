@@ -55,5 +55,6 @@
   "offer.created": "Offer created successfully",
   "offer.accept": "Accept offer",
   "offer.make.counteroffer": "Make a counteroffer",
+  "offer.remove": "Remove offer",
   "hide": "Hide"
 }

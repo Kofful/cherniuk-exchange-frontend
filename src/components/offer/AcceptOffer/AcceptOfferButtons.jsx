@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import {route} from "../../../routes";
 import PropTypes from "prop-types";
 
-const AcceptOfferButtons = ({creatorId, isAcceptPermitted}) => {
+const AcceptOfferButtons = ({creatorId, acceptOffer}) => {
     const navigate = useNavigate();
 
     const counterofferLink = route("createCounteroffer").replace("%id%", creatorId.toString());
@@ -16,7 +16,6 @@ const AcceptOfferButtons = ({creatorId, isAcceptPermitted}) => {
         <div className="w-100 d-flex justify-content-end border-top border-secondary">
             <button
                 className="btn btn-secondary m-2"
-                disabled={!isAcceptPermitted}
                 onClick={makeCounteroffer}
             >
                 <FormattedMessage
@@ -24,7 +23,10 @@ const AcceptOfferButtons = ({creatorId, isAcceptPermitted}) => {
                     defaultMessage="Make a counteroffer"
                 />
             </button>
-            <button className="btn btn-danger m-2" disabled={!isAcceptPermitted}>
+            <button
+                className="btn btn-danger m-2"
+                onClick={acceptOffer}
+            >
                 <FormattedMessage
                     id="offer.accept"
                     defaultMessage="Accept offer"
@@ -36,12 +38,12 @@ const AcceptOfferButtons = ({creatorId, isAcceptPermitted}) => {
 
 AcceptOfferButtons.propTypes = {
     creatorId: PropTypes.number,
-    isAcceptPermitted: PropTypes.bool
+    acceptOffer: PropTypes.func
 };
 
 AcceptOfferButtons.defaultProps = {
     creatorId: 0,
-    isAcceptPermitted: false
+    acceptOffer: () => {}
 };
 
 export default AcceptOfferButtons;

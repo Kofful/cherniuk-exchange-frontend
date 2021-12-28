@@ -1,8 +1,8 @@
 import {useParams} from "react-router-dom";
 import CreateOfferForm from "./CreateOfferForm";
 import {observer} from "mobx-react";
-import {useStore} from "../../stores";
-import Page403 from "../errorPages/Page403";
+import {useStore} from "../../../stores";
+import Page403 from "../../errorPages/Page403";
 
 const CreateTargetedOfferForm = () => {
     const {id} = useParams();

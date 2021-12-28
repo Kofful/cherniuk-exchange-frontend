@@ -1,18 +1,18 @@
 import SelectingItemsForm from "./SelectingItemsForm";
-import ItemsToGiveTemplate from "../../templates/offer/ItemsToGiveTemplate";
-import ItemsToAcceptTemplate from "../../templates/offer/ItemsToAcceptTemplate";
+import ItemsToGiveTemplate from "../../../templates/offer/ItemsToGiveTemplate";
+import ItemsToAcceptTemplate from "../../../templates/offer/ItemsToAcceptTemplate";
 import PropTypes from "prop-types";
-import {getUserItems as getItems} from "../../api/user";
+import {getUserItems as getItems} from "../../../api/user";
 import {useCookies} from "react-cookie";
 import {useEffect, useState} from "react";
-import {useStore} from "../../stores";
+import {useStore} from "../../../stores";
 import {observer} from "mobx-react";
-import {getStickers} from "../../api/stickers";
+import {getStickers} from "../../../api/stickers";
 import {FormattedMessage, useIntl} from "react-intl";
-import {createOffer} from "../../api/offer";
+import {createOffer} from "../../../api/offer";
 import {useToasts} from "react-toast-notifications";
 import {useNavigate} from "react-router-dom";
-import {route} from "../../routes";
+import {route} from "../../../routes";
 
 const CreateOfferForm = ({addresseeId}) => {
     const {userStore} = useStore();
