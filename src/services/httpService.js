@@ -10,9 +10,13 @@ const fetchFunction = async requestConfig => {
 }
 
 export const get = (url, headers) => {
-    return fetchFunction({url, headers, method: "get"})
+    return fetchFunction({url, headers, method: "get"});
 }
 
 export const post = (url, data, headers) => {
-    return fetchFunction({url, data, headers, method: "post"})
+    return fetchFunction({url, data, headers, method: "post"});
+}
+
+export const del = (url, headers) => {
+    return fetchFunction({url, headers, method: "delete"});
 }
