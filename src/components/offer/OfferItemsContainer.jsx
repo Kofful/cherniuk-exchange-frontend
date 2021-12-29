@@ -2,7 +2,7 @@ import OfferItem from "./OfferItem";
 import PropTypes from "prop-types";
 import {useEffect, useRef} from "react";
 
-const SelectingItemsContainer = ({stickers, update, loadMore}) => {
+const OfferItemsContainer = ({stickers, update, loadMore}) => {
     const STICKER_HEIGHT_WITH_PADDING = 95;
 
     const scrollRef = useRef(null);
@@ -38,16 +38,16 @@ const SelectingItemsContainer = ({stickers, update, loadMore}) => {
     );
 };
 
-SelectingItemsContainer.propTypes = {
+OfferItemsContainer.propTypes = {
     stickers: PropTypes.array,
     update: PropTypes.func,
     loadMore: PropTypes.func
 };
 
-SelectingItemsContainer.defaultProps = {
+OfferItemsContainer.defaultProps = {
     stickers: [],
     update: () => {},
     loadMore: () => {}
 };
 
-export default SelectingItemsContainer;
+export default OfferItemsContainer;

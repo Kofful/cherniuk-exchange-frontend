@@ -4,7 +4,7 @@ import {getUserInfo} from "../../api/user";
 import Page404 from "../errorPages/Page404";
 import Spinner from "../spinner/Spinner";
 import UserItems from "./UserItems";
-import CreateOfferForm from "../offer/CreateOfferForm";
+import CreateOfferForm from "../offer/CreateOffer/CreateOfferForm";
 import {useStore} from "../../stores";
 import {observer} from "mobx-react";
 import InteractButtons from "./InteractButtons/InteractButtons";

@@ -6,7 +6,7 @@ import Confirm from "../components/confirm/Confirm";
 import Admin from "../components/admin/Admin";
 import Page404 from "../components/errorPages/Page404";
 import Profile from "../components/profile/Profile";
-import CreateOfferForm from "../components/offer/CreateOfferForm";
+import CreateTargetedOfferForm from "../components/offer/CreateOffer/CreateTargetedOfferForm";
 
 const Routes = () => {
     return (
@@ -17,7 +17,8 @@ const Routes = () => {
             <Route path="/confirm" element={<Confirm/>}/>
             <Route path="/admin" element={<Admin/>}/>
             <Route path="/user/:id" element={<Profile/>}/>
-            <Route path="/offer/create" element={<CreateOfferForm/>}/>
+            <Route path="/offer/create" element={<CreateTargetedOfferForm/>}/>
+            <Route path="/offer/create/:id" element={<CreateTargetedOfferForm/>}/>
             <Route path="*" element={<Page404/>}/>
         </ReactRoutes>
     )
@@ -39,7 +40,10 @@ export const route = (routeName) => {
             path = "/user/%id%";
             break;
         case "createOffer":
-            path = "/offer/create"
+            path = "/offer/create";
+            break;
+        case "createCounteroffer":
+            path = "/offer/create/%id%";
             break;
         case "home":
         default:

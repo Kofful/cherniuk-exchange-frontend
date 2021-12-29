@@ -1,6 +1,6 @@
 import {FormattedMessage} from "react-intl";
 import PropTypes from "prop-types";
-import SelectingItemsContainer from "./SelectingItemsContainer";
+import OfferItemsContainer from "../OfferItemsContainer";
 
 const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited}) => {
     const {header} = template;
@@ -65,8 +65,8 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited})
                 <input className="form-control w-25" type="number" value={items.payment} onChange={e => updatePayment(e.target.value)}/>
             </div>
             <div className="d-flex">
-                <SelectingItemsContainer stickers={items.selecting} update={selectItem} loadMore={loadMore}/>
-                <SelectingItemsContainer stickers={items.selected} update={unselectItem}/>
+                <OfferItemsContainer stickers={items.selecting} update={selectItem} loadMore={loadMore}/>
+                <OfferItemsContainer stickers={items.selected} update={unselectItem}/>
             </div>
         </div>
     );
