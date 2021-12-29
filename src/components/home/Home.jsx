@@ -26,6 +26,11 @@ const Home = () => {
         setOfferList(offers);
     };
 
+    const removeOffer = (offerId) => {
+        const newOfferList = offerList.filter(item => item.id !== offerId);
+        setOfferList(newOfferList);
+    };
+
     useEffect(() => {
         loadOffers();
     }, [page]);
@@ -43,6 +48,8 @@ const Home = () => {
                     creator={offer.creator}
                     isAcceptingPermitted={!!user && user.id !== offer.creator.id}
                     isRemovingPermitted={!!user && user.id === offer.creator.id}
+                    offerId={offer.id}
+                    removeFromList={removeOffer}
                     key={offer.id}
                 />
             ))}

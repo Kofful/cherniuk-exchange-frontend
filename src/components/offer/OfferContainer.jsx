@@ -4,6 +4,10 @@ import AcceptOfferButtons from "./AcceptOffer/AcceptOfferButtons";
 import OfferCreatorInfo from "./OfferCreatorInfo";
 import RemoveOfferButtons from "./RemoveOffer/RemoveOfferButtons";
 import OfferPaymentsInfo from "./OfferPayment/OfferPaymentsInfo";
+import {useCookies, withCookies} from "react-cookie";
+import {removeOffer} from "../../api/offer";
+import {useToasts} from "react-toast-notifications";
+import {useIntl} from "react-intl";
 
 const OfferContainer = (
     {
@@ -13,9 +17,15 @@ const OfferContainer = (
         targetPayment,
         creator,
         isAcceptingPermitted,
-        isRemovingPermitted
+        isRemovingPermitted,
+        offerId,
+        removeFromList
     }
 ) => {
+    const [cookie] = useCookies();
+    const {addToast} = useToasts();
+    const intl = useIntl();
+
     const setReactKeys = items => {
         return items.map((item, index) => ({...item, reactKey: index}));
     };
@@ -26,8 +36,44 @@ const OfferContainer = (
     const acceptOffer = async () => {
         console.log("accept");
     };
-    const removeOffer = async () => {
-        console.log("remove");
+
+    const remove = async () => {
+        try {
+            await removeOffer(offerId, cookie.token);
+            removeFromList(offerId);
+            addToast(
+                intl.formatMessage({
+                    id: "offer.removed",
+                    defaultMessage: "The offer has ben removed"
+                }),
+                {
+                    appearance: "info",
+                    placement: "bottom-right",
+                    autoDismiss: false
+                })
+        } catch (e) {
+            if (e.status === 403) {
+                e.data.forEach(message => {
+                    addToast(
+                        message,
+                        {
+                            appearance: "error",
+                            placement: "bottom-right",
+                            autoDismiss: false
+                        }
+                    );
+                })
+            } else {
+                addToast(intl.formatMessage({
+                    id: "error.appeared",
+                    defaultMessage: "Some error appeared. Please, retry later."
+                }), {
+                    appearance: "error",
+                    placement: "bottom-right",
+                    autoDismiss: false
+                });
+            }
+        }
     };
 
     return (
@@ -39,7 +85,7 @@ const OfferContainer = (
                 <OfferItemsContainer stickers={accept}/>
             </div>
             {isAcceptingPermitted && <AcceptOfferButtons creatorId={creator.id} acceptOffer={acceptOffer}/>}
-            {isRemovingPermitted && <RemoveOfferButtons removeOffer={removeOffer}/>}
+            {isRemovingPermitted && <RemoveOfferButtons removeOffer={remove}/>}
         </div>
     );
 };
@@ -54,7 +100,9 @@ OfferContainer.propTypes = {
         username: PropTypes.string
     }),
     isAcceptingPermitted: PropTypes.bool,
-    isRemovingPermitted: PropTypes.bool
+    isRemovingPermitted: PropTypes.bool,
+    offerId: PropTypes.number,
+    removeFromList: PropTypes.func
 };
 
 OfferContainer.defaultProps = {
@@ -67,7 +115,9 @@ OfferContainer.defaultProps = {
         username: ""
     },
     isAcceptingPermitted: false,
-    isRemovingPermitted: false
+    isRemovingPermitted: false,
+    offerId: 0,
+    removeFromList: () => {}
 };
 
-export default OfferContainer;
+export default withCookies(OfferContainer);
