@@ -5,7 +5,7 @@ import OfferCreatorInfo from "./OfferCreatorInfo";
 import RemoveOfferButtons from "./RemoveOffer/RemoveOfferButtons";
 import OfferPaymentsInfo from "./OfferPayment/OfferPaymentsInfo";
 import {useCookies, withCookies} from "react-cookie";
-import {removeOffer} from "../../api/offer";
+import {acceptOffer, removeOffer} from "../../api/offer";
 import {useToasts} from "react-toast-notifications";
 import {useIntl} from "react-intl";
 
@@ -33,46 +33,65 @@ const OfferContainer = (
     const give = setReactKeys(giveItems);
     const accept = setReactKeys(acceptItems);
 
-    const acceptOffer = async () => {
-        console.log("accept");
+    const processError = e => {
+        if (e.status === 403) {
+            e.data.forEach(message => {
+                addToast(
+                    message,
+                    {
+                        appearance: "error",
+                        placement: "bottom-right",
+                        autoDismiss: false
+                    }
+                );
+            })
+        } else {
+            addToast(intl.formatMessage({
+                id: "error.appeared",
+                defaultMessage: "Some error appeared. Please, retry later."
+            }), {
+                appearance: "error",
+                placement: "bottom-right",
+                autoDismiss: false
+            });
+        }
     };
 
-    const remove = async () => {
+    const onAccept = async () => {
+        try {
+            await acceptOffer(offerId, cookie.token);
+            removeFromList(offerId);
+            addToast(
+                intl.formatMessage({
+                    id: "offer.accepted",
+                    defaultMessage: "The offer has been accepted"
+                }),
+                {
+                    appearance: "info",
+                    placement: "bottom-right",
+                    autoDismiss: false
+                });
+        } catch (e) {
+            processError(e);
+        }
+    };
+
+    const onRemove = async () => {
         try {
             await removeOffer(offerId, cookie.token);
             removeFromList(offerId);
             addToast(
                 intl.formatMessage({
                     id: "offer.removed",
-                    defaultMessage: "The offer has ben removed"
+                    defaultMessage: "The offer has been removed"
                 }),
                 {
                     appearance: "info",
                     placement: "bottom-right",
                     autoDismiss: false
-                })
-        } catch (e) {
-            if (e.status === 403) {
-                e.data.forEach(message => {
-                    addToast(
-                        message,
-                        {
-                            appearance: "error",
-                            placement: "bottom-right",
-                            autoDismiss: false
-                        }
-                    );
-                })
-            } else {
-                addToast(intl.formatMessage({
-                    id: "error.appeared",
-                    defaultMessage: "Some error appeared. Please, retry later."
-                }), {
-                    appearance: "error",
-                    placement: "bottom-right",
-                    autoDismiss: false
                 });
-            }
+        } catch (e) {
+            processError(e);
         }
     };
 
@@ -84,8 +103,8 @@ const OfferContainer = (
                 <OfferItemsContainer stickers={give}/>
                 <OfferItemsContainer stickers={accept}/>
             </div>
-            {isAcceptingPermitted && <AcceptOfferButtons creatorId={creator.id} acceptOffer={acceptOffer}/>}
-            {isRemovingPermitted && <RemoveOfferButtons removeOffer={remove}/>}
+            {isAcceptingPermitted && <AcceptOfferButtons creatorId={creator.id} acceptOffer={onAccept}/>}
+            {isRemovingPermitted && <RemoveOfferButtons removeOffer={onRemove}/>}
         </div>
     );
 };
@@ -117,7 +136,8 @@ OfferContainer.defaultProps = {
     isAcceptingPermitted: false,
     isRemovingPermitted: false,
     offerId: 0,
-    removeFromList: () => {}
+    removeFromList: () => {
+    }
 };
 
 export default withCookies(OfferContainer);
