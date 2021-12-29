@@ -17,3 +17,9 @@ export const removeOffer = (offerId, token) => {
        "Authorization": `Bearer ${token}`
     });
 }
+
+export const acceptOffer = (offerId, token) => {
+    return post(`/${getLang()}/api/offer/accept/${offerId}`, {}, {
+        "Authorization": `Bearer ${token}`
+    });
+};
