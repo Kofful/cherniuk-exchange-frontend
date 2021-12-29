@@ -1,4 +1,4 @@
-import {get, post} from "../services/exchangeHttpService";
+import {get, post, del} from "../services/exchangeHttpService";
 
 const getLang = () => window.localStorage.getItem("locale") ?? "en";
 
@@ -11,3 +11,9 @@ export const createOffer = (offer, token) => {
         "Authorization": `Bearer ${token}`
     });
 };
+
+export const removeOffer = (offerId, token) => {
+    return del(`/${getLang()}/api/offer/remove/${offerId}`, {
+       "Authorization": `Bearer ${token}`
+    });
+}

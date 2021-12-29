@@ -56,5 +56,6 @@
   "offer.accept": "Accept offer",
   "offer.make.counteroffer": "Make a counteroffer",
   "offer.remove": "Remove offer",
+  "offer.removed": "The offer has been removed",
   "hide": "Hide"
 }
