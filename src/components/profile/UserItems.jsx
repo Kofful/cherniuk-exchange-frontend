@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 import {getUserItems} from "../../api/user";
 import Spinner from "../spinner/Spinner";
 import StickerCard from "./StickerCard";
-import {FormattedMessage} from "react-intl";
 import {useCookies, withCookies} from "react-cookie";
 import PageButtons from "../pagination/PageButtons";
 
@@ -38,12 +37,6 @@ const UserItems = ({userId}) => {
             {!isLoading && items.length > 0 &&
                 <>
                     <div className="p-4">
-                        <h2 className="ms-5">
-                            <FormattedMessage
-                                id="inventory"
-                                defaultMessage="Inventory"
-                            />
-                        </h2>
                         <div className="d-flex flex-wrap">
                             {
                                 items.map((item) => {

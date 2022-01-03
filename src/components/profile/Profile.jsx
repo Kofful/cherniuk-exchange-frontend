@@ -3,8 +3,6 @@ import {useEffect, useState} from "react";
 import {getUserInfo} from "../../api/user";
 import Page404 from "../errorPages/Page404";
 import Spinner from "../spinner/Spinner";
-import UserItems from "./UserItems";
-import CreateOfferForm from "../offer/CreateOffer/CreateOfferForm";
 import {useStore} from "../../stores";
 import {observer} from "mobx-react";
 import InteractButtons from "./InteractButtons/InteractButtons";
@@ -17,7 +15,6 @@ const Profile = () => {
 
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isCreatingOffer, setIsCreatingOffer] = useState(false)
 
     useEffect(() => {
         const loadUser = async () => {
@@ -47,13 +44,7 @@ const Profile = () => {
                     <InteractButtons
                         loggedInUserId={loggedInUserId}
                         userId={userId}
-                        isCreatingOffer={isCreatingOffer}
-                        setIsCreatingOffer={setIsCreatingOffer}
                     />
-                    {isCreatingOffer &&
-                        <CreateOfferForm addresseeId={userId}/>
-                    }
-                    <UserItems userId={userId}/>
                 </div>
             }
         </div>
