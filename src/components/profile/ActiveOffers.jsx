@@ -11,7 +11,7 @@ const ActiveOffers = ({userId}) => {
     };
 
     return (
-        <OfferListContainer getOffers={getOffers}/>
+        <OfferListContainer getOffers={getOffers} isOpen={true}/>
     );
 };
 

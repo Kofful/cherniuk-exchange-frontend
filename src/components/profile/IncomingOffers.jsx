@@ -10,7 +10,7 @@ const IncomingOffers = () => {
     };
 
     return (
-        <OfferListContainer getOffers={getOffers}/>
+        <OfferListContainer getOffers={getOffers} isOpen={true}/>
     );
 };
 

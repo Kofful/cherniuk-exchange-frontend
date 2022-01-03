@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
 import PropTypes from "prop-types";
 import {FormattedMessage} from "react-intl";
 
-const OfferListContainer = ({getOffers}) => {
+const OfferListContainer = ({getOffers, isOpen}) => {
     const {userStore} = useStore();
     const {user} = userStore;
     const [page, setPage] = useState(1);
@@ -47,8 +47,8 @@ const OfferListContainer = ({getOffers}) => {
                     creatorPayment={offer.creatorPayment}
                     targetPayment={offer.targetPayment}
                     creator={offer.creator}
-                    isAcceptingPermitted={!!user && user.id !== offer.creator.id}
-                    isRemovingPermitted={!!user && user.id === offer.creator.id}
+                    isAcceptingPermitted={isOpen && !!user && user.id !== offer.creator.id}
+                    isRemovingPermitted={isOpen && !!user && user.id === offer.creator.id}
                     offerId={offer.id}
                     removeFromList={removeOffer}
                     key={offer.id}
@@ -69,11 +69,13 @@ const OfferListContainer = ({getOffers}) => {
 };
 
 OfferListContainer.propTypes = {
-    getOffers: PropTypes.func
+    getOffers: PropTypes.func,
+    isOpen: PropTypes.bool
 };
 
 OfferListContainer.defaultProps = {
-    getOffers: () => {}
+    getOffers: () => {},
+    isOpen: false
 };
 
 export default observer(OfferListContainer);
