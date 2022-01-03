@@ -31,7 +31,7 @@ const UserItems = ({userId}) => {
     }, [userId, page]);
 
     return (
-        <>
+        <div className="d-flex justify-content-center">
             {isLoading && <Spinner/>}
 
             {!isLoading && items.length > 0 &&
@@ -51,7 +51,7 @@ const UserItems = ({userId}) => {
                     <PageButtons changePage={changePage} page={page} maxPages={maxPages}/>
                 </>
             }
-        </>
+        </div>
     );
 };
 
