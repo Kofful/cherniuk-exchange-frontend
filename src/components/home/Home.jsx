@@ -3,7 +3,7 @@ import {getOffers} from "../../api/offer";
 
 const Home = () => {
     return (
-        <OfferListContainer getOffers={getOffers}/>
+        <OfferListContainer getOffers={getOffers} isOpen={true}/>
     );
 };
 

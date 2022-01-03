@@ -29,3 +29,7 @@ export const getIncomingOffers = (page, token) => {
         "Authorization": token ? `Bearer ${token}` : null
     });
 };
+
+export const getUserHistory = (id, page) => {
+    return get(`/${getLang()}/api/user/${id}/history?page=${page}`);
+};

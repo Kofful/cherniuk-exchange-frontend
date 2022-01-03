@@ -7,6 +7,7 @@ import CreateOfferForm from "../../offer/CreateOffer/CreateOfferForm";
 import ActiveOffers from "../ActiveOffers";
 import IncomingOffers from "../IncomingOffers";
 import {useEffect, useState} from "react";
+import PastOffers from "../PastOffers";
 
 const InteractButtons = ({loggedInUserId, userId}) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -37,6 +38,12 @@ const InteractButtons = ({loggedInUserId, userId}) => {
                         defaultMessage="Active offers"
                     />
                 </Tab>
+                <Tab>
+                    <FormattedMessage
+                        id="changes.history"
+                        defaultMessage="History of changes"
+                    />
+                </Tab>
                 {canShowIncomingOffersTab &&
                     <Tab>
                         <FormattedMessage
@@ -61,6 +68,10 @@ const InteractButtons = ({loggedInUserId, userId}) => {
 
             <TabPanel>
                 <ActiveOffers userId={userId}/>
+            </TabPanel>
+
+            <TabPanel>
+                <PastOffers userId={userId}/>
             </TabPanel>
 
             {canShowIncomingOffersTab &&
