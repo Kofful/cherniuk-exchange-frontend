@@ -28,3 +28,14 @@
     align-self: center;
     margin: 0!important;
 }
+
+.nav-tabs li {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.nav-selected {
+    background-color: #343a40!important;
+}
