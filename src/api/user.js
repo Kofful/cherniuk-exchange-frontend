@@ -16,4 +16,10 @@ export const getUserItems = (id, page, token) => {
     return get(`/${getLang()}/api/user/${id}/items?page=${page}`, {
         "Authorization": token ? `Bearer ${token}` : null
     });
-}
+};
+
+export const getUserOffers = (id, page, token) => {
+    return get(`/${getLang()}/api/user/${id}/offers?page=${page}`, {
+        "Authorization": token ? `Bearer ${token}` : null
+    });
+};

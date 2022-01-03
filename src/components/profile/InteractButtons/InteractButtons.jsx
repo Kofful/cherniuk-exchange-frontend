@@ -4,6 +4,7 @@ import 'react-tabs/style/react-tabs.css';
 import {FormattedMessage} from "react-intl";
 import UserItems from "../UserItems";
 import CreateOfferForm from "../../offer/CreateOffer/CreateOfferForm";
+import ActiveOffers from "../ActiveOffers";
 
 const InteractButtons = ({loggedInUserId, userId}) => {
     const canShowCreateOfferTab = loggedInUserId && userId !== loggedInUserId;
@@ -15,6 +16,12 @@ const InteractButtons = ({loggedInUserId, userId}) => {
                     <FormattedMessage
                         id="inventory"
                         defaultMessage="Inventory"
+                    />
+                </Tab>
+                <Tab>
+                    <FormattedMessage
+                        id="offers.active"
+                        defaultMessage="Active offers"
                     />
                 </Tab>
                 {canShowCreateOfferTab &&
@@ -29,6 +36,10 @@ const InteractButtons = ({loggedInUserId, userId}) => {
 
             <TabPanel>
                 <UserItems userId={userId}/>
+            </TabPanel>
+
+            <TabPanel>
+                <ActiveOffers userId={userId}/>
             </TabPanel>
 
             {canShowCreateOfferTab &&
