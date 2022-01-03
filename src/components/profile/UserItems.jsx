@@ -31,27 +31,25 @@ const UserItems = ({userId}) => {
     }, [userId, page]);
 
     return (
-        <>
+        <div className="d-flex flex-column align-items-center">
             {isLoading && <Spinner/>}
 
             {!isLoading && items.length > 0 &&
                 <>
-                    <div className="p-4">
-                        <div className="d-flex flex-wrap">
-                            {
-                                items.map((item) => {
-                                    return (
-                                        <StickerCard sticker={item.sticker} itemId={item.id} loadItems={loadItems}
-                                                     key={item.id}/>
-                                    );
-                                })
-                            }
-                        </div>
+                    <div className="d-flex flex-wrap p-4 w-100">
+                        {
+                            items.map((item) => {
+                                return (
+                                    <StickerCard sticker={item.sticker} itemId={item.id} loadItems={loadItems}
+                                                 key={item.id}/>
+                                );
+                            })
+                        }
                     </div>
                     <PageButtons changePage={changePage} page={page} maxPages={maxPages}/>
                 </>
             }
-        </>
+        </div>
     );
 };
 
