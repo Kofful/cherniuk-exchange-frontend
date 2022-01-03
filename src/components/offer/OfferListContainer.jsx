@@ -5,6 +5,7 @@ import OfferContainer from "./OfferContainer";
 import PageButtons from "../pagination/PageButtons";
 import {observer} from "mobx-react";
 import PropTypes from "prop-types";
+import {FormattedMessage} from "react-intl";
 
 const OfferListContainer = ({getOffers}) => {
     const {userStore} = useStore();
@@ -53,6 +54,15 @@ const OfferListContainer = ({getOffers}) => {
                     key={offer.id}
                 />
             ))}
+
+            {!isLoading && offerList.length === 0 &&
+                <div className="my-5 py-5 fs-1 text-secondary w-100 d-flex justify-content-center">
+                    <FormattedMessage
+                        id="no.offers"
+                        defaultMessage="There are no offers"
+                    />
+                </div>
+            }
             <PageButtons page={page} changePage={setPage} maxPages={maxPages}/>
         </div>
     );

@@ -23,3 +23,9 @@ export const getUserOffers = (id, page, token) => {
         "Authorization": token ? `Bearer ${token}` : null
     });
 };
+
+export const getIncomingOffers = (page, token) => {
+    return get(`/${getLang()}/api/incoming?page=${page}`, {
+        "Authorization": token ? `Bearer ${token}` : null
+    });
+};

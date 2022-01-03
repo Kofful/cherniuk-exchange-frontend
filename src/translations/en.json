@@ -58,5 +58,7 @@
   "offer.remove": "Remove offer",
   "offer.removed": "The offer has been removed",
   "offers.active": "Active offers",
+  "offers.incoming": "Incoming offers",
+  "no.offers": "There are no offers",
   "hide": "Hide"
 }
