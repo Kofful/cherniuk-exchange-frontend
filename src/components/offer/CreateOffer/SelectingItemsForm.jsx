@@ -1,9 +1,68 @@
 import {FormattedMessage} from "react-intl";
 import PropTypes from "prop-types";
 import OfferItemsContainer from "../OfferItemsContainer";
+import PaymentInput from "./PaymentInput";
+import SearchInput from "./SearchInput";
+import {getStickers} from "../../../api/stickers";
+import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
+import {getUserItems} from "../../../api/user";
 
-const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited}) => {
+const SelectingItemsForm = ({template, items, updateItems, userId}) => {
     const {header} = template;
+
+    const [cookie] = useCookies();
+
+    const [page, changePage] = useState(1);
+    const [maxPages, changeMaxPages] = useState(1);
+    const [query, setQuery] = useState("");
+
+    const getItems = async () => {
+        let newItems;
+        let maxPages;
+        if (userId === 0) {
+            const response = await getStickers(page, cookie.token, query);
+            newItems = response.stickers.map(sticker => ({...sticker, reactKey: sticker.id}));
+            maxPages = Math.floor((response.count - 1) / process.env.REACT_APP_STICKERS_PER_PAGE) + 1;
+        } else {
+            newItems = await getUserItems(userId, page, cookie.token, query);
+            maxPages = Math.floor((newItems.count - 1) / process.env.REACT_APP_USER_ITEMS_PER_PAGE) + 1;
+            newItems = newItems.stickers.map(item => {
+                    return {...item.sticker, reactKey: item.id};
+                }
+            );
+        }
+        newItems = items.selecting.concat(newItems);
+
+        changeMaxPages(maxPages)
+
+        updateItems({
+            ...items,
+            selecting: newItems
+        });
+    };
+
+    const loadMore = () => {
+        if (page < maxPages) {
+            changePage(page + 1);
+        }
+    };
+
+    const updateQuery = (query) => {
+        updateItems({
+            payment: "0",
+            selecting: [],
+            selected: []
+        });
+        setQuery(query);
+        changePage(1);
+    };
+
+    useEffect(() => {
+        if(userId !== -1) {
+            getItems();
+        }
+    }, [userId, page, query]);
 
     const moveItem = (source, destination, itemKey) => {
         const movedItem = {...source.find(item => item.reactKey === itemKey), reactKey: Date.now()};
@@ -18,7 +77,7 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited})
         //limitedSelecting decides either to remove items from selecting or leave them in array:
         //if items are limited (chosen from user inventory) - update selecting;
         //if items are unlimited (chosen from sticker list) - leave selecting as it was;
-        const limitedSelecting = isLimited ? newSelecting : selecting;
+        const limitedSelecting = !!userId ? newSelecting : selecting;
         updateItems({
             ...items,
             selecting: limitedSelecting,
@@ -29,7 +88,7 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited})
     const unselectItem = (itemId) => {
         const {selecting, selected} = {...items};
         const [newSelected, newSelecting] = moveItem(selected, selecting, itemId);
-        const limitedSelecting = isLimited ? newSelecting : selecting;
+        const limitedSelecting = !!userId ? newSelecting : selecting;
         updateItems({
             ...items,
             selecting: limitedSelecting,
@@ -48,21 +107,15 @@ const SelectingItemsForm = ({template, items, updateItems, loadMore, isLimited})
 
     return (
         <div className="w-50">
-            <h3>
-                <FormattedMessage
-                    id={header.id}
-                    defaultMessage={header.defaultMessage}
-                />
-            </h3>
-            <div className="d-flex">
-                <label className="fs-5 me-3">
+            <div>
+                <h3>
                     <FormattedMessage
-                        id="offer.payment"
-                        defaultMessage="Payment"
+                        id={header.id}
+                        defaultMessage={header.defaultMessage}
                     />
-                    :
-                </label>
-                <input className="form-control w-25" type="number" value={items.payment} onChange={e => updatePayment(e.target.value)}/>
+                </h3>
+                <PaymentInput payment={items.payment} updatePayment={updatePayment}/>
+                <SearchInput updateQuery={updateQuery}/>
             </div>
             <div className="d-flex">
                 <OfferItemsContainer stickers={items.selecting} update={selectItem} loadMore={loadMore}/>
@@ -85,8 +138,7 @@ SelectingItemsForm.propTypes = {
         selected: PropTypes.array
     }),
     updateItems: PropTypes.func,
-    loadMore: PropTypes.func,
-    isLimited: PropTypes.bool
+    userId: PropTypes.number
 };
 
 SelectingItemsForm.defaultProps = {
@@ -102,8 +154,7 @@ SelectingItemsForm.defaultProps = {
         selected: []
     },
     updateItems: () => {},
-    loadMore: () => {},
-    isLimited: true
+    userId: 0
 };
 
 export default SelectingItemsForm;

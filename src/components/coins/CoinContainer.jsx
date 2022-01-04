@@ -15,7 +15,7 @@ CoinContainer.propTypes = {
     coins: PropTypes.number
 };
 
-CoinContainer.propTypes = {
+CoinContainer.defaultProps = {
     coins: 0
 };
 

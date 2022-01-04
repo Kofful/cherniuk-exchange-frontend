@@ -12,8 +12,8 @@ const getFormData = sticker => {
     return formData;
 };
 
-export const getStickers = (page, token) => {
-    return get(`/api/stickers?page=${page}`, {
+export const getStickers = (page, token, query = "") => {
+    return get(`/api/stickers?page=${page}&query=${query}`, {
         "Authorization": `Bearer ${token}`
     });
 };

@@ -12,6 +12,7 @@
   "sticker.coefficient.min": "Sticker coefficient must be 0 or greater!",
   "sticker.coefficient.max": "Sticker coefficient must be 100,000 or less!",
   "sticker.image.required": "Sticker image is required!",
+  "sticker.search.by.name": "Search by name...",
   "page.prev": "Previous page",
   "page.next": "Next page",
   "confirm.email.fail": "Failed to confirm your email.",
