@@ -5,14 +5,18 @@ import {FormattedMessage} from "react-intl";
 import {sellItem} from "../../api/item";
 import {useCookies} from "react-cookie";
 import {useToasts} from "react-toast-notifications";
+import CoinContainer from "../coins/CoinContainer";
+import {useStore} from "../../stores";
 
 const StickerCard = ({itemId, sticker, loadItems}) => {
+    const {userStore} = useStore();
     const [cookie] = useCookies();
     const {addToast} = useToasts();
 
     const sell = async () => {
         try {
             await sellItem(itemId, cookie.token);
+            userStore.setUser({...userStore.user, wallet: userStore.user.wallet + sticker.price});
             loadItems();
         } catch(error) {
             addToast(
@@ -36,9 +40,8 @@ const StickerCard = ({itemId, sticker, loadItems}) => {
                                 id="sell"
                                 defaultMessage="Sell"
                             />
-                            <div className="ms-5 d-flex">
-                                <span className="coin-count">{sticker.price}</span>
-                                <img className="ms-1 coin-icon" alt="Coin" src={getImage("/public/img/coin.png")}/>
+                            <div className="ms-5">
+                                <CoinContainer coins={sticker.price}/>
                             </div>
                         </div>
                     </div>
