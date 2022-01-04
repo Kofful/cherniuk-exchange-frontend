@@ -8,6 +8,7 @@ import {useCookies, withCookies} from "react-cookie";
 import {acceptOffer, removeOffer} from "../../api/offer";
 import {useToasts} from "react-toast-notifications";
 import {useIntl} from "react-intl";
+import {useStore} from "../../stores";
 
 const OfferContainer = (
     {
@@ -22,6 +23,7 @@ const OfferContainer = (
         removeFromList
     }
 ) => {
+    const {userStore} = useStore();
     const [cookie] = useCookies();
     const {addToast} = useToasts();
     const intl = useIntl();
@@ -61,6 +63,7 @@ const OfferContainer = (
         try {
             await acceptOffer(offerId, cookie.token);
             removeFromList(offerId);
+            userStore.setUser({...userStore.user, wallet: userStore.user.wallet - targetPayment});
             addToast(
                 intl.formatMessage({
                     id: "offer.accepted",
