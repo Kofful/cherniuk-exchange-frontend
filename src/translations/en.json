@@ -57,6 +57,7 @@
   "offer.make.counteroffer": "Make a counteroffer",
   "offer.remove": "Remove offer",
   "offer.removed": "The offer has been removed",
+  "offer.accepted": "The offer has been accepted",
   "offers.active": "Active offers",
   "offers.incoming": "Incoming offers",
   "no.offers": "There are no offers",
