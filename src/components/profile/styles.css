@@ -18,17 +18,6 @@
     margin-left: -70px !important;
 }
 
-.coin-icon {
-    width: 18px;
-    height: 18px;
-    align-self: center;
-}
-
-.coin-count {
-    align-self: center;
-    margin: 0!important;
-}
-
 .nav-tabs li {
     flex: 1 1 auto;
     text-align: center;

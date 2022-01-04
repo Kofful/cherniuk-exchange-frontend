@@ -1,0 +1,10 @@
+.coin-icon {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+}
+
+.coin-count {
+    align-self: center;
+    margin: 0!important;
+}
