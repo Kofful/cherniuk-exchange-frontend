@@ -99,7 +99,7 @@ const OfferContainer = (
     };
 
     return (
-        <div className="w-100 mt-5 border border-3 border-secondary rounded">
+        <div className="w-100 my-4 border border-3 border-secondary rounded">
             <OfferCreatorInfo creator={creator}/>
             <OfferPaymentsInfo creatorPayment={creatorPayment} targetPayment={targetPayment}/>
             <div className="d-flex w-100 p-2">

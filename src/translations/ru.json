@@ -12,7 +12,8 @@
   "sticker.coefficient.min": "Коэффициент должен быть равен 0 или более!",
   "sticker.coefficient.max": "Коэффициент должен быть равен 100,000 или менее!",
   "sticker.image.required": "Изображение стикера является обязательным!",
-  "sticker.search.by.name": "Искать по названию...",
+  "sticker.search.by.name": "Искать по названию стикера...",
+  "sticker.name": "Название стикера",
   "page.prev": "Назад",
   "page.next": "Далее",
   "confirm.email.fail": "При подтверждении электронной почты произошла ошибка.",
@@ -61,6 +62,7 @@
   "offer.accepted": "Предложение принято",
   "offers.active": "Активные предложения",
   "offers.incoming": "Входящие предложения",
+  "offers.search": "Найти предложения",
   "no.offers": "Предложений нет",
   "changes.history": "История обменов",
   "hide": "Скрыть"
