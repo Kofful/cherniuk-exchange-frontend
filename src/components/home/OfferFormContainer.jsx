@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import OfferListContainer from "../offer/OfferListContainer";
-import {getOffers} from "../../api/offer";
 import SearchForm from "./SearchForm";
+import PropTypes from "prop-types";
 
-const OfferFormContainer = () => {
+const OfferFormContainer = ({isWithSearch, isOpen, getOffers}) => {
     const defaultQuery = {
         minPayment: 0,
         maxPayment: 10000,
@@ -48,7 +48,7 @@ const OfferFormContainer = () => {
 
     useEffect(() => {
         //prevent double call when user is changing search params
-        if(!timer.isActive) {
+        if (!timer.isActive) {
             loadOffers(page);
         }
     }, [page, timer.isActive]);
@@ -79,23 +79,38 @@ const OfferFormContainer = () => {
 
     return (
         <>
-            <SearchForm
-                creatorQuery={creatorQuery}
-                setCreatorQuery={setCreatorQuery}
-                targetQuery={targetQuery}
-                setTargetQuery={setTargetQuery}
-            />
+            {isWithSearch &&
+                <SearchForm
+                    creatorQuery={creatorQuery}
+                    setCreatorQuery={setCreatorQuery}
+                    targetQuery={targetQuery}
+                    setTargetQuery={setTargetQuery}
+                />
+            }
             <OfferListContainer
                 isLoading={isLoading}
                 offerList={offerList}
                 setOfferList={setOfferList}
-                isOpen={true}
+                isOpen={isOpen}
                 page={page}
                 setPage={setPage}
                 maxPages={maxPages}
             />
         </>
     );
+};
+
+OfferFormContainer.propTypes = {
+    getOffers: PropTypes.func,
+    isWithSearch: PropTypes.bool,
+    isOpen: PropTypes.bool,
+};
+
+OfferFormContainer.defaultProps = {
+    getOffers: () => {
+    },
+    isWithSearch: false,
+    isOpen: false
 };
 
 export default OfferFormContainer;

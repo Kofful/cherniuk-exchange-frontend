@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import OfferListContainer from "../offer/OfferListContainer";
 import {getUserOffers} from "../../api/user";
 import {useCookies, withCookies} from "react-cookie";
+import OfferFormContainer from "../home/OfferFormContainer";
 
 const ActiveOffers = ({userId}) => {
     const [cookie] = useCookies();
@@ -11,7 +11,7 @@ const ActiveOffers = ({userId}) => {
     };
 
     return (
-        <OfferListContainer getOffers={getOffers} isOpen={true}/>
+        <OfferFormContainer getOffers={getOffers} isWithSearch={false} isOpen={true}/>
     );
 };
 
