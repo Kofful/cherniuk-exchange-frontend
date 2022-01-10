@@ -4,6 +4,7 @@ services:
   react:
     container_name: react
     build: ./
+    restart: unless-stopped
     volumes:
       - './:/app'
       - '/app/node_modules'
