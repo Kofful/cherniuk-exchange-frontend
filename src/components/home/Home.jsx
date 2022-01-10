@@ -1,9 +1,10 @@
 import OfferFormContainer from "./OfferFormContainer";
+import {getOffers} from "../../api/offer";
 
 const Home = () => {
     return (
         <div>
-            <OfferFormContainer/>
+            <OfferFormContainer getOffers={getOffers} isWithSearch={true} isOpen={true}/>
         </div>
     );
 };

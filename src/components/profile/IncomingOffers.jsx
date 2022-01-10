@@ -1,6 +1,6 @@
 import {useCookies, withCookies} from "react-cookie";
-import OfferListContainer from "../offer/OfferListContainer";
 import {getIncomingOffers} from "../../api/user";
+import OfferFormContainer from "../home/OfferFormContainer";
 
 const IncomingOffers = () => {
     const [cookie] = useCookies();
@@ -10,7 +10,7 @@ const IncomingOffers = () => {
     };
 
     return (
-        <OfferListContainer getOffers={getOffers} isOpen={true}/>
+        <OfferFormContainer getOffers={getOffers} isWithSearch={false} isOpen={true}/>
     );
 };
 

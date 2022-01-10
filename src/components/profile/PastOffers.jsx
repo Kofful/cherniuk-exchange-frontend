@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import OfferListContainer from "../offer/OfferListContainer";
 import {getUserHistory} from "../../api/user";
+import OfferFormContainer from "../home/OfferFormContainer";
 
 const PastOffers = ({userId}) => {
     const getOffers = page => {
@@ -8,7 +8,7 @@ const PastOffers = ({userId}) => {
     };
 
     return (
-        <OfferListContainer getOffers={getOffers} isOpen={false}/>
+        <OfferFormContainer getOffers={getOffers} isWithSearch={false} isOpen={false}/>
     );
 };
 
